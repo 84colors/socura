@@ -2,3 +2,35 @@
 body {
     /* background-color: red !important; */
 }
+
+.header_video-wrapper {
+    mask: url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg);
+    mask-position: center -400px;
+    mask-size: 1000px 1000px;
+    mask-repeat: no-repeat;
+    animation: bigEagle 4s ease-out forwards;
+    animation-iteration-count: 3;
+}
+
+@keyframes bigEagle {
+    0% {
+        mask-size: 1000px 1000px;
+        mask-position: center center;
+    }
+    100% {
+        mask-size: 2000px 2000px;
+        mask-position: center -900px;
+        /* mask-size: 2000px 1000px; */
+    }
+}
+
+/* .promoListParallax:nth-of-type(odd) .promo {
+    -webkit-mask: url(data:image/png;base64,...;
+    mask: url(data:image/png;base64,...;
+    -webkit-mask-size: 1846px 3200px;
+    mask-size: 1846px 3200px;
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-position: top center;
+    mask-position: top center;
+} */
