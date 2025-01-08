@@ -1,7 +1,9 @@
 `use strict`;
-const isLocal = true;
+// const isLocal = true;
 
-console.log("hello from localsecora");
+console.log("hello from localsecoraaa>>");
+
+$("body").style();
 
 // -------------------
 // NAV HOVER EFFECTS
