@@ -24,7 +24,18 @@ body {
     }
 }
 
-/* .promoListParallax:nth-of-type(odd) .promo {
+/* 
+https://codyhouse.co/nuggets/css-gradient-borders#:%7E:text=How%20to%20create%20gradient%20borders%20in%20CSS.%20To,linear-gradient%20%28to%20right%2C%20darkblue%2C%20darkorchid%29%201%20%3B%20%7D
+.btn-gradient-2 {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, darkblue, darkorchid) border-box;
+  border-radius: 50em;
+  border: 4px solid transparent;
+}
+
+https://www.geeksforgeeks.org/gradient-borders/
+
+.promoListParallax:nth-of-type(odd) .promo {
     -webkit-mask: url(data:image/png;base64,...;
     mask: url(data:image/png;base64,...;
     -webkit-mask-size: 1846px 3200px;
