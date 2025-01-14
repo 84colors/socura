@@ -49,6 +49,10 @@ tabContainer.each(function () {
     //Activate first item
     tabItem.eq(0).addClass("is-active");
     tabItem.eq(0).find($("[tabs='tabs-item-content']")).addClass("is-active");
+    tabItem.eq(0).find($(".layout34_item-arrow")).addClass("is-active");
+    tabItem.eq(0).find($(".steps_row-number")).addClass("is-active");
+    tabItem.eq(0).find($(".layout34_item-border")).addClass("is-active");
+    tabItem.eq(0).find($(".layout34_item-heading")).addClass("is-active");
     tabImg.eq(0).addClass("is-active");
 
     // add a timeline for each tab item and pass index
@@ -60,10 +64,18 @@ tabContainer.each(function () {
         $(this).on("click", function () {
             tabItem.removeClass("is-active");
             tabImg.removeClass("is-active");
+            $(".layout34_item-arrow").removeClass("is-active");
+            $(".steps_row-number").removeClass("is-active");
+            $(".layout34_item-border").removeClass("is-active");
+            $(".layout34_item-heading").removeClass("is-active");
             tabItem
                 .find($("[tabs='tabs-item-content']"))
                 .removeClass("is-active");
             $(this).addClass("is-active");
+            $(this).find($(".layout34_item-arrow")).addClass("is-active");
+            $(this).find($(".steps_row-number")).addClass("is-active");
+            $(this).find($(".layout34_item-border")).addClass("is-active");
+            $(this).find($(".layout34_item-heading")).addClass("is-active");
             tabImg.eq(index).addClass("is-active");
             tabContent.addClass("is-active");
         });
