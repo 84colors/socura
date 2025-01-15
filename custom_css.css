@@ -3,27 +3,6 @@ body {
     /* background-color: red !important; */
 }
 
-.header_video-wrapper {
-    mask: url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg);
-    mask-position: center -400px;
-    mask-size: 1000px 1000px;
-    mask-repeat: no-repeat;
-    animation: bigEagle 4s ease-out forwards;
-    animation-iteration-count: 3;
-}
-
-@keyframes bigEagle {
-    0% {
-        mask-size: 1000px 1000px;
-        mask-position: center center;
-    }
-    100% {
-        mask-size: 2000px 2000px;
-        mask-position: center -900px;
-        /* mask-size: 2000px 1000px; */
-    }
-}
-
 /* 
 https://codyhouse.co/nuggets/css-gradient-borders#:%7E:text=How%20to%20create%20gradient%20borders%20in%20CSS.%20To,linear-gradient%20%28to%20right%2C%20darkblue%2C%20darkorchid%29%201%20%3B%20%7D
 .btn-gradient-2 {
