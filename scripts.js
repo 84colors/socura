@@ -38,83 +38,6 @@ const useLocalImgs = function () {
 
 // useLocalImgs();
 
-// ---- END REMOVE FROM PROD ----
-
-// Product Tabs
-let tabContainer = $("[tabs='tabs-container']");
-tabContainer.each(function () {
-    let tabItem = $(this).find($("[tabs='tabs-items'] > div"));
-    let tabImg = $(this).find($("[tabs='tabs-images'] > img"));
-
-    //Activate first item
-    tabItem.eq(0).addClass("is-active");
-    tabItem.eq(0).find($("[tabs='tabs-item-content']")).addClass("is-active");
-    tabItem.eq(0).find($(".layout34_item-arrow")).addClass("is-active");
-    tabItem.eq(0).find($(".steps_row-number")).addClass("is-active");
-    tabItem.eq(0).find($(".layout34_item-border")).addClass("is-active");
-    tabItem.eq(0).find($(".layout34_item-heading")).addClass("is-active");
-    tabImg.eq(0).addClass("is-active");
-
-    // add a timeline for each tab item and pass index
-    tabItem.each(function (index) {
-        let tabContent = $(this).find("[tabs='tabs-item-content']");
-
-        //get index
-        //on click active class to clicked tab and play timeline
-        $(this).on("click", function () {
-            tabItem.removeClass("is-active");
-            tabImg.removeClass("is-active");
-            $(".layout34_item-arrow").removeClass("is-active");
-            $(".steps_row-number").removeClass("is-active");
-            $(".layout34_item-border").removeClass("is-active");
-            $(".layout34_item-heading").removeClass("is-active");
-            tabItem
-                .find($("[tabs='tabs-item-content']"))
-                .removeClass("is-active");
-            $(this).addClass("is-active");
-            $(this).find($(".layout34_item-arrow")).addClass("is-active");
-            $(this).find($(".steps_row-number")).addClass("is-active");
-            $(this).find($(".layout34_item-border")).addClass("is-active");
-            $(this).find($(".layout34_item-heading")).addClass("is-active");
-            tabImg.eq(index).addClass("is-active");
-            tabContent.addClass("is-active");
-        });
-    });
-});
-
-// Features Tabs
-let featuresContainer = $("[features='features-container']");
-featuresContainer.each(function () {
-    let tabItem = $(this).find($("[features='features-items'] > div"));
-    let tabImg = $(this).find($("[features='features-images'] > img"));
-
-    //Activate first item
-    tabItem.eq(0).addClass("is-active");
-    tabItem
-        .eq(0)
-        .find($("[features='features-item-content']"))
-        .addClass("is-active");
-    tabImg.eq(0).addClass("is-active");
-
-    // add a timeline for each tab item and pass index
-    tabItem.each(function (index) {
-        let tabContent = $(this).find("[features='features-item-content']");
-
-        //get index
-        //on click active class to clicked tab and play timeline
-        $(this).on("click", function () {
-            tabItem.removeClass("is-active");
-            tabImg.removeClass("is-active");
-            tabItem
-                .find($("[features='features-item-content']"))
-                .removeClass("is-active");
-            $(this).addClass("is-active");
-            tabImg.eq(index).addClass("is-active");
-            tabContent.addClass("is-active");
-        });
-    });
-});
-
 // FAQ TOGGLES
 // -------------------
 // [faq='faq-container'] on container of all items, usually a flex, with item as direct child
@@ -143,3 +66,208 @@ faqContainer.each(function () {
         });
     });
 });
+
+// ---------------------------------
+// GSAP
+// ---------------------------------
+gsap.registerPlugin(ScrollTrigger);
+
+// ---------------------------------
+//PAGE LOAD ANIMATION
+// bg moves left as eagle mask zooms in
+// text appears from opacity, then button same
+
+function pageLoad() {
+    const loadTL = gsap.timeline({ paused: true, ease: "power1.out" });
+
+    const grad = $(".gradient_img");
+    const heading = $(".header-home_header");
+    const btnHeading = $(".header-inner_button-group");
+    const eagleVid = $(".header_video-wrapper");
+
+    eagleVid.css({
+        mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
+        maskPosition: "center -900px",
+        maskSize: "2000px 2000px",
+        maskRepeat: "no-repeat",
+    });
+
+    // console.log("hellooo");
+
+    loadTL.from(grad, { x: "-50%", duration: 1 });
+    loadTL.from(eagleVid, {
+        maskSize: "1000px 1000px",
+        maskPosition: "center -300px",
+        duration: 3,
+    });
+    loadTL.from(heading, { y: 10, opacity: 0, duration: 1 });
+    loadTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 });
+
+    loadTL.play();
+}
+
+pageLoad();
+
+// ---------------------------------
+// LINE ANIMATIONS
+// when ScrollTrigger, animate clipPath on .is-top element
+
+function maskLine() {
+    let lines = $(".grad_line");
+    lines.each(function (line) {
+        let lineTop = $(this).find(".is-top");
+        console.log(lineTop);
+        let clip_polygonTL = gsap.timeline({
+            scrollTrigger: {
+                trigger: lines,
+                // start: "top center",
+                start: "top center+=225px",
+                end: "top center-=225px",
+                // markers: true,
+                // ease: "none",
+                // scrub: true,
+                scrub: 0.5,
+            },
+        });
+
+        clip_polygonTL.fromTo(
+            lineTop,
+            {
+                clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
+            },
+            {
+                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+            }
+        );
+    });
+} //line
+maskLine();
+
+// ---------------------------------
+//STATS Animation
+// when in view roll numbers from 0 and animate the bar up height percentage, stagger
+
+const statsAnimate = function () {
+    let stats = $(".stats_list");
+    let statItem = $(".stats_item");
+    let statNumbers = $(".stats_number");
+    let statBar = $(".stats_bar");
+
+    let statsTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: stats,
+            start: "top bottom-=200px",
+            // markers: true,
+        },
+    });
+
+    statsTL.from(statNumbers, {
+        textContent: 0,
+        duration: 2,
+        ease: "power1.in",
+        snap: { textContent: 1 },
+    });
+    statsTL.from(
+        statBar,
+        {
+            height: 0,
+            duration: 2,
+            stagger: {
+                each: 0.2,
+            },
+        },
+        0
+    );
+};
+
+statsAnimate();
+
+// ---------------------------------
+//TABS ANIMATION
+// create timeline with steps for each tab, then play each step on click
+
+// Tabs
+let tabContainer = $("[tabs='tabs-container']");
+tabContainer.each(function () {
+    let tabItem = $(this).find($("[tabs='tabs-items'] > div"));
+    let tabImg = $(this).find($("[tabs='tabs-images'] > img"));
+
+    //Activate first item
+    tabItem.eq(0).addClass("is-active");
+    tabItem.eq(0).find($("[tabs='tabs-item-content']")).addClass("is-active");
+    tabImg.eq(0).addClass("is-active");
+});
+
+$(tabContainer).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let lotties = $(this).find(".steps-link_image").hide();
+    let content = $(this).find(".steps-link_details-hidden");
+    let arrow = $(this).find(".steps-link_item-arrow");
+    let heading = $(this).find(".steps-link_item-heading");
+    let number = $(this).find(".steps_row-number");
+    let border = $(this).find(".steps-link_item-border");
+
+    let prevIndex = -1;
+    gsap.defaults({ duration: 0.5, ease: "power2.out" });
+    gsap.set(content, { height: 0 });
+
+    function triggerLottie(index) {
+        // close state
+        if (prevIndex > -1) {
+            lotties.eq(prevIndex).hide();
+            gsap.to(content.eq(prevIndex), { height: 0 });
+            gsap.to(arrow.eq(prevIndex), { rotationZ: 0 }, 0);
+            gsap.to(heading.eq(prevIndex), { color: "#fff" }, 0);
+            gsap.to(
+                number.eq(prevIndex),
+                { color: "#88939f", borderColor: "#2d3a47" },
+                0
+            );
+            gsap.to(border.eq(prevIndex), { width: 0 }, 0);
+        }
+        // open state
+        lotties.eq(index).show();
+        gsap.to(content.eq(index), { height: "auto" });
+        gsap.to(arrow.eq(index), { rotationZ: 90 }, 0);
+        gsap.to(heading.eq(index), { color: "#54b6b1" }, 0);
+        gsap.to(number.eq(index), { color: "#fff", borderColor: "#54b6b1" }, 0);
+        gsap.to(border.eq(index), { width: "100%" }, "<0.1");
+
+        lotties.eq(index).click();
+        // track previous
+        prevIndex = index;
+    }
+    triggerLottie(0);
+
+    items.each(function (index) {
+        let itemIndex = index;
+        let link = $(this).find(".tab_trigger");
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerLottie(itemIndex);
+        });
+    });
+});
+
+// ---------------------------------
+//VIDEO CTA animation
+// play video on scroll trigger, then fade in text
+
+const videoCTA = $(".section_cta-sm").find("video")[0];
+videoCTA.pause();
+
+//Intro Video play
+function ctaVideo() {
+    let tlVideo = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".section_cta-sm",
+            start: "top 80%",
+            // markers: "true",
+            ease: "none",
+            onEnter: () => videoCTA.play(),
+            onEnterBack: () => videoCTA.play(),
+            onLeave: () => videoCTA.pause(),
+            onLeaveBack: () => videoCTA.pause(),
+        },
+    });
+}
+ctaVideo();
