@@ -94,14 +94,18 @@ function pageLoad() {
 
     // console.log("hellooo");
 
-    loadTL.from(grad, { x: "-50%", duration: 1 });
-    loadTL.from(eagleVid, {
-        maskSize: "1000px 1000px",
-        maskPosition: "center -300px",
-        duration: 3,
-    });
-    loadTL.from(heading, { y: 10, opacity: 0, duration: 1 });
-    loadTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 });
+    // loadTL.from(grad, { x: "-50%", duration: 1 });
+    loadTL.from(
+        eagleVid,
+        {
+            maskSize: "1000px 1000px",
+            maskPosition: "center -300px",
+            duration: 3,
+        },
+        "<0.5"
+    );
+    loadTL.from(heading, { y: 10, opacity: 0, duration: 1 }, "<0.5");
+    loadTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 }, "<0.75");
 
     loadTL.play();
 }
