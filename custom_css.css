@@ -3,6 +3,10 @@ body {
     /* background-color: red !important; */
 }
 
+.is-white {
+    background-color: rgba(256, 256, 256, 0.8) !important;
+}
+
 /* 
 https://codyhouse.co/nuggets/css-gradient-borders#:%7E:text=How%20to%20create%20gradient%20borders%20in%20CSS.%20To,linear-gradient%20%28to%20right%2C%20darkblue%2C%20darkorchid%29%201%20%3B%20%7D
 .btn-gradient-2 {
