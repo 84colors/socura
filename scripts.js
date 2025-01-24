@@ -281,7 +281,7 @@ const videoEagle = $(".eagle_background-video-wrapper").find("video")[0];
 videoEagle.pause();
 
 //Intro Video play
-function ctaVideo() {
+function videoEagle() {
     let tlVideo = gsap.timeline({
         scrollTrigger: {
             trigger: ".section_eagle",
@@ -295,4 +295,4 @@ function ctaVideo() {
         },
     });
 }
-ctaVideo();
+videoEagle();
