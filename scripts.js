@@ -277,22 +277,22 @@ function ctaVideo() {
 ctaVideo();
 
 //Eagle video play
-const videoEagle = $(".eagle_background-video-wrapper").find("video")[0];
-videoEagle.pause();
+const videoEagleAbout = $(".eagle_background-video-wrapper").find("video")[0];
+videoEagleAbout.pause();
 
 //Intro Video play
-function videoEagle() {
+function videoEagleAbout() {
     let tlVideo = gsap.timeline({
         scrollTrigger: {
             trigger: ".section_eagle",
             start: "top 80%",
             // markers: "true",
             ease: "none",
-            onEnter: () => videoEagle.play(),
-            onEnterBack: () => videoEagle.play(),
-            onLeave: () => videoEagle.pause(),
-            onLeaveBack: () => videoEagle.pause(),
+            onEnter: () => videoEagleAbout.play(),
+            onEnterBack: () => videoEagleAbout.play(),
+            onLeave: () => videoEagleAbout.pause(),
+            onLeaveBack: () => videoEagleAbout.pause(),
         },
     });
 }
-videoEagle();
+videoEagleAbout();
