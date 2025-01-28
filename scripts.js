@@ -4,7 +4,7 @@
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
 
-console.log("hello from localsecora>>");
+console.log("hello from localsecoraxx");
 
 // $("body").style();
 
@@ -120,7 +120,7 @@ function maskLine() {
     let lines = $(".grad_line");
     lines.each(function (line) {
         let lineTop = $(this).find(".is-top");
-        console.log(lineTop);
+        // console.log(lineTop);
         let clip_polygonTL = gsap.timeline({
             scrollTrigger: {
                 trigger: lines,
@@ -255,44 +255,102 @@ $(tabContainer).each(function () {
 // ---------------------------------
 //VIDEO CTA animation
 // play video on scroll trigger, then fade in text
+if ($(".section_cta-sm").length) {
+    const videoCTA = $(".section_cta-sm").find("video")[0];
+    videoCTA.pause();
 
-const videoCTA = $(".section_cta-sm").find("video")[0];
-videoCTA.pause();
-
-//Intro Video play
-function ctaVideo() {
-    let tlVideo = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".section_cta-sm",
-            start: "top 80%",
-            // markers: "true",
-            ease: "none",
-            onEnter: () => videoCTA.play(),
-            onEnterBack: () => videoCTA.play(),
-            onLeave: () => videoCTA.pause(),
-            onLeaveBack: () => videoCTA.pause(),
-        },
-    });
+    //Intro Video play
+    function ctaVideo() {
+        let tlVideo = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".section_cta-sm",
+                start: "top 80%",
+                // markers: "true",
+                ease: "none",
+                onEnter: () => videoCTA.play(),
+                onEnterBack: () => videoCTA.play(),
+                onLeave: () => videoCTA.pause(),
+                onLeaveBack: () => videoCTA.pause(),
+            },
+        });
+    }
+    ctaVideo();
 }
-ctaVideo();
 
 //Eagle video play
-const videoEagleAbout = $(".eagle_background-video-wrapper").find("video")[0];
-videoEagleAbout.pause();
-
-//Intro Video play
-function videoEaglePlay() {
-    let tlVideo = gsap.timeline({
-        scrollTrigger: {
-            trigger: ".section_eagle",
-            start: "top 80%",
-            // markers: "true",
-            ease: "none",
-            onEnter: () => videoEagleAbout.play(),
-            onEnterBack: () => videoEagleAbout.play(),
-            onLeave: () => videoEagleAbout.pause(),
-            onLeaveBack: () => videoEagleAbout.pause(),
-        },
-    });
+if ($(".eagle_background-video-wrapper").length) {
+    const videoEagleAbout = $(".eagle_background-video-wrapper").find(
+        "video"
+    )[0];
+    videoEagleAbout.pause();
+    //Intro Video play
+    function videoEaglePlay() {
+        let tlVideo = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".section_eagle",
+                start: "top 80%",
+                // markers: "true",
+                ease: "none",
+                onEnter: () => videoEagleAbout.play(),
+                onEnterBack: () => videoEagleAbout.play(),
+                onLeave: () => videoEagleAbout.pause(),
+                onLeaveBack: () => videoEagleAbout.pause(),
+            },
+        });
+    }
+    videoEaglePlay();
 }
-videoEaglePlay();
+
+//Sliders
+// $(".section_cases").hide();
+let casesSliders = $(".section_cases");
+
+const sliderDiv = $(casesSliders).find(".usecases_slides-wrap")[0];
+
+// console.log(sliderDiv);
+
+const swiper = new Swiper(".usecases_slides-wrap", {
+    // Optional parameters
+    direction: "vertical",
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+        el: ".swiper-pagination",
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: "[arrow-next]",
+        prevEl: "[arrow-prev]",
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+        el: ".swiper-scrollbar",
+    },
+});
+
+// $(".section_cases").each(function () {
+//     // console.log("foundx");
+//     const sliderDiv = $(this).find(".usecases_slides-wrap")[0];
+//     const swiper = new Swiper(sliderDiv, {
+//         slidesPerView: 1,
+//         speed: 700,
+//         // centeredSlides: true,
+//         initialSlide: 1,
+//         loop: true,
+//         // spaceBetween: 40,
+//         pagination: {
+//             el: $(this).find("[slider-num]")[0],
+//             type: "fraction",
+//         },
+//         navigation: {
+//             nextEl: $(this).find("[arrow-next]")[0],
+//             prevEl: $(this).find("[arrow-prev]")[0],
+//             disabledClass: "is-disabled",
+//         },
+//         slideActiveClass: "is-active",
+//         slideDuplicateActiveClass: "is-active",
+//     });
+// });
