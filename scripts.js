@@ -4,7 +4,7 @@
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
 
-console.log("hello from localsecoraxx");
+console.log("hello from localsecorarrx");
 
 // $("body").style();
 
@@ -302,55 +302,55 @@ if ($(".eagle_background-video-wrapper").length) {
 }
 
 //Sliders
-// $(".section_cases").hide();
-let casesSliders = $(".section_cases");
 
-const sliderDiv = $(casesSliders).find(".usecases_slides-wrap")[0];
+jQuery(document).ready(function ($) {
+    if ($(".usecases_slides-wrap").length) {
+        var usesSlick = $(".usecases_slides-wrap");
+        var usesStatus = $(".slider_numbers");
+        //Cases sliders
+        usesSlick.slick({
+            infinite: true,
+            slidesToShow: 1,
+            fade: true,
+            dots: false,
+            prevArrow: "[cases-arrow-prev]",
+            nextArrow: "[cases-arrow-next]",
+            // nextArrow: false,
+            slidesToScroll: 1,
+        });
 
-// console.log(sliderDiv);
+        usesSlick.on(
+            "init reInit afterChange",
+            function (event, slick, currentSlide, nextSlide) {
+                //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
+                var i = (currentSlide ? currentSlide : 0) + 1;
+                usesStatus.text("0" + i + "/" + "0" + slick.slideCount);
+            }
+        );
+    }
 
-const swiper = new Swiper(".usecases_slides-wrap", {
-    // Optional parameters
-    direction: "vertical",
-    loop: true,
+    if ($(".blog-cards_component").length) {
+        var blogSlick = $(".blog-cards_group");
+        var blogStatus = $(".blog-cards_line-fill");
+        //Blog sliders
+        blogSlick.slick({
+            // infinite: true,
+            infinite: false,
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            dots: false,
+            prevArrow: "[blog-arrow-prev]",
+            nextArrow: "[blog-arrow-next]",
+        });
 
-    // If we need pagination
-    pagination: {
-        el: ".swiper-pagination",
-    },
-
-    // Navigation arrows
-    navigation: {
-        nextEl: "[arrow-next]",
-        prevEl: "[arrow-prev]",
-    },
-
-    // And if we need scrollbar
-    scrollbar: {
-        el: ".swiper-scrollbar",
-    },
+        blogSlick.on(
+            "init reInit afterChange",
+            function (event, slick, currentSlide, nextSlide) {
+                //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
+                var i = (currentSlide ? currentSlide : 0) + 1;
+                console.log(slick.slideCount - i);
+                blogStatus.css("width", 100 - slick.slideCount / i + "%");
+            }
+        );
+    }
 });
-
-// $(".section_cases").each(function () {
-//     // console.log("foundx");
-//     const sliderDiv = $(this).find(".usecases_slides-wrap")[0];
-//     const swiper = new Swiper(sliderDiv, {
-//         slidesPerView: 1,
-//         speed: 700,
-//         // centeredSlides: true,
-//         initialSlide: 1,
-//         loop: true,
-//         // spaceBetween: 40,
-//         pagination: {
-//             el: $(this).find("[slider-num]")[0],
-//             type: "fraction",
-//         },
-//         navigation: {
-//             nextEl: $(this).find("[arrow-next]")[0],
-//             prevEl: $(this).find("[arrow-prev]")[0],
-//             disabledClass: "is-disabled",
-//         },
-//         slideActiveClass: "is-active",
-//         slideDuplicateActiveClass: "is-active",
-//     });
-// });
