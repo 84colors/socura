@@ -349,7 +349,10 @@ jQuery(document).ready(function ($) {
                 //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
                 var i = (currentSlide ? currentSlide : 0) + 1;
                 console.log(slick.slideCount - i);
-                blogStatus.css("width", 100 - slick.slideCount / i + "%");
+                blogStatus.css(
+                    "width",
+                    100 - (i / slick.slideCount) * 100 + "%"
+                );
             }
         );
     }
