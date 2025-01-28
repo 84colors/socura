@@ -343,6 +343,8 @@ jQuery(document).ready(function ($) {
             nextArrow: "[blog-arrow-next]",
         });
 
+        blogStatus.css("width", (1 / slick.slideCount) * 100 + "%");
+
         blogSlick.on(
             "init reInit afterChange",
             function (event, slick, currentSlide, nextSlide) {
