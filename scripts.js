@@ -264,6 +264,37 @@ const statsAnimate = function () {
 statsAnimate();
 
 // ---------------------------------
+//TIMELINE Animation
+// when in view roll numbers from 0 and animate the bar up height percentage, stagger
+
+$(".timeline1_row").each(function (index) {
+    let triggerEl = $(this).find(".timeline1_heading-wrap");
+    let timelineItemText = $(this).find(".timeline01_rich-text");
+    let timelineItemNumber = $(this).find(".steps_row-number");
+
+    let timelineTL = gsap.timeline({
+        scrollTrigger: {
+            trigger: triggerEl,
+            start: "top 50%",
+            end: "bottom 30%",
+            markers: "true",
+            toggleActions: "restart none none reverse",
+            // onStart: ScrollTrigger.refresh(),
+            onEnter: function () {
+                console.log("play");
+                ScrollTrigger.refresh();
+            },
+            onLeave: function () {
+                console.log("finish");
+                // timelineTL.reverse();
+            },
+        },
+    });
+    timelineTL.from(timelineItemText, { opacity: 0 });
+    timelineTL.from(timelineItemText, { height: 0 }, 0);
+});
+
+// ---------------------------------
 //TABS ANIMATION
 // create timeline with steps for each tab, then play each step on click
 
