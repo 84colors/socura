@@ -26,7 +26,7 @@ const useLocalImgs = function () {
     let headerImgs = $(".header5_background-media");
     let tabContainer = $("[tabs='tabs-container']");
 
-    headerImgs.attr("src", "http://127.0.0.1:5500/Renders/header01.png");
+    headerImgs.attr("src", "http://127.0.0.1:5500/0001.webm");
     headerImgs.attr("srcset", "");
 
     tabContainer.each(function () {
@@ -73,14 +73,24 @@ faqContainer.each(function () {
 gsap.registerPlugin(ScrollTrigger);
 
 // ---------------------------------
-//PAGE LOAD ANIMATION
+//PAGE LOAD ANIMATIONS
 // bg moves left as eagle mask zooms in
 // text appears from opacity, then button same
+// ---------------------------------
+
+// $(`.cases-base_header-image`).css({
+//     mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
+//     maskPosition: "center -900px",
+//     maskSize: "2000px 2000px",
+//     maskRepeat: "no-repeat",
+// });
+
+// ---------------------------------
+//Home page
 
 function pageLoad() {
     const loadTL = gsap.timeline({ paused: true, ease: "power1.out" });
 
-    const grad = $(".gradient_img");
     const heading = $(".header-home_header");
     const btnHeading = $(".header-inner_button-group");
     const eagleVid = $(".header_video-wrapper");
@@ -92,9 +102,6 @@ function pageLoad() {
         maskRepeat: "no-repeat",
     });
 
-    // console.log("hellooo");
-
-    // loadTL.from(grad, { x: "-50%", duration: 1 });
     loadTL.from(
         eagleVid,
         {
@@ -110,11 +117,81 @@ function pageLoad() {
     loadTL.play();
 }
 
-pageLoad();
+//Check if on home page
+if ($(".header-home_header").length) {
+    pageLoad();
+}
+
+// ---------------------------------
+//Page load video play for inner with video
+
+function videoLoad() {
+    const loadVideoTL = gsap.timeline({ paused: true, ease: "power1.out" });
+
+    const heading = $(".header3d_heading");
+    const subheading = $(".header3d_text");
+    const btnHeading = $(".header3d_button-group");
+    const headerVideo = $(".section_header-3d").find("video")[0];
+
+    headerVideo.pause();
+
+    loadVideoTL.from(heading, { y: 10, opacity: 0, duration: 1 }, "<0.5");
+    loadVideoTL.from(subheading, { y: 10, opacity: 0, duration: 1 }, "<0.25");
+    loadVideoTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 }, "<0.25");
+
+    headerVideo.play();
+    loadVideoTL.play();
+}
+//Check if on video page and local is not set
+if ($(".header1_video-wrapper").length) {
+    const videoInnerSrc = $(".video_code-embed").attr("data-src");
+    $(".video_code-embed video").attr("src", videoInnerSrc);
+    videoLoad();
+}
+
+// ---------------------
+//Page load eagle for inner with full video
+
+function pageInnerLoad() {
+    const loadInnerTL = gsap.timeline({ paused: true, ease: "power1.out" });
+
+    const heading = $(".header-inner_header");
+    const btnHeading = $(".header-inner_button-group");
+    const eagleInner = $(".header-inner_video-wrapper");
+
+    eagleInner.css({
+        mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
+        maskPosition: "center -1380px",
+        maskSize: "3000px 3000px",
+        maskRepeat: "no-repeat",
+    });
+
+    loadInnerTL.from(
+        eagleInner,
+        {
+            maskSize: "1000px 1000px",
+            maskPosition: "center -300px",
+            duration: 3,
+        },
+        "<0.5"
+    );
+    loadInnerTL.from(heading, { y: 10, opacity: 0, duration: 1 }, "<0.5");
+    loadInnerTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 }, "<0.75");
+
+    loadInnerTL.play();
+}
+
+//Check if on video page and local is not set
+if ($(".header-inner_header").length) {
+    // const videoInnerSrc = $(".video_code-embed").attr("data-src");
+    // $(".video_code-embed video").attr("src", videoInnerSrc);
+    pageInnerLoad();
+}
 
 // ---------------------------------
 // LINE ANIMATIONS
 // when ScrollTrigger, animate clipPath on .is-top element
+// ---------------------------------
 
 function maskLine() {
     let lines = $(".grad_line");
@@ -123,7 +200,7 @@ function maskLine() {
         // console.log(lineTop);
         let clip_polygonTL = gsap.timeline({
             scrollTrigger: {
-                trigger: lines,
+                trigger: lineTop,
                 // start: "top center",
                 start: "top center+=225px",
                 end: "top center-=225px",
@@ -192,19 +269,11 @@ statsAnimate();
 
 // Tabs
 let tabContainer = $("[tabs='tabs-container']");
-tabContainer.each(function () {
-    let tabItem = $(this).find($("[tabs='tabs-items'] > div"));
-    let tabImg = $(this).find($("[tabs='tabs-images'] > img"));
 
-    //Activate first item
-    tabItem.eq(0).addClass("is-active");
-    tabItem.eq(0).find($("[tabs='tabs-item-content']")).addClass("is-active");
-    tabImg.eq(0).addClass("is-active");
-});
-
+// Activate on scroll
 $(tabContainer).each(function () {
     let items = $(this).find("[tabs='tabs-items'] > div");
-    let lotties = $(this).find(".steps-link_image").hide();
+    let videos = $(this).find(".steps-link_video").hide();
     let content = $(this).find(".steps-link_details-hidden");
     let arrow = $(this).find(".steps-link_item-arrow");
     let heading = $(this).find(".steps-link_item-heading");
@@ -212,13 +281,14 @@ $(tabContainer).each(function () {
     let border = $(this).find(".steps-link_item-border");
 
     let prevIndex = -1;
+
     gsap.defaults({ duration: 0.5, ease: "power2.out" });
     gsap.set(content, { height: 0 });
 
-    function triggerLottie(index) {
+    function triggerTabs(index) {
         // close state
         if (prevIndex > -1) {
-            lotties.eq(prevIndex).hide();
+            videos.eq(prevIndex).hide();
             gsap.to(content.eq(prevIndex), { height: 0 });
             gsap.to(arrow.eq(prevIndex), { rotationZ: 0 }, 0);
             gsap.to(heading.eq(prevIndex), { color: "#fff" }, 0);
@@ -230,24 +300,44 @@ $(tabContainer).each(function () {
             gsap.to(border.eq(prevIndex), { width: 0 }, 0);
         }
         // open state
-        lotties.eq(index).show();
+        videos.eq(index).show();
         gsap.to(content.eq(index), { height: "auto" });
         gsap.to(arrow.eq(index), { rotationZ: 90 }, 0);
         gsap.to(heading.eq(index), { color: "#54b6b1" }, 0);
         gsap.to(number.eq(index), { color: "#fff", borderColor: "#54b6b1" }, 0);
         gsap.to(border.eq(index), { width: "100%" }, "<0.1");
+        videos.eq(index).find("video")[0].play();
 
-        lotties.eq(index).click();
+        // console.log(videos.eq(index));
+
+        // videos.eq(index).click();
         // track previous
         prevIndex = index;
     }
-    triggerLottie(0);
+
+    //On scroll here? scroll trigger function onEnter
+    //make a new timeline
+    function scrollToTabs() {
+        let tlTabs = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".section_steps",
+                start: "top 20%",
+                // end: "bottom 50%",
+                // markers: "true",
+                ease: "none",
+                onEnter: () => triggerTabs(0),
+            },
+        });
+    }
+    scrollToTabs();
+
+    // triggerTabs(0);
 
     items.each(function (index) {
         let itemIndex = index;
-        let link = $(this).find(".tab_trigger");
+        // let link = $(this).find(".tab_trigger");
         $(this).on("click", function () {
-            if (itemIndex !== prevIndex) triggerLottie(itemIndex);
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
         });
     });
 });
