@@ -277,7 +277,7 @@ $(".timeline1_row").each(function (index) {
             trigger: triggerEl,
             start: "top 50%",
             end: "bottom 30%",
-            markers: "true",
+            // markers: "true",
             toggleActions: "restart none none reverse",
             // onStart: ScrollTrigger.refresh(),
             onEnter: function () {
