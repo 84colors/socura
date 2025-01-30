@@ -144,8 +144,8 @@ function videoLoad() {
 }
 //Check if on video page and local is not set
 if ($(".header1_video-wrapper").length) {
-    // const videoInnerSrc = $(".video_code-embed").attr("data-src");
-    const videoInnerSrc = $(".steps-link_video").attr("data-src");
+    const videoInnerSrc = $(".video_code-embed").attr("data-src");
+    // const videoInnerSrc = $(".steps-link_video").attr("data-src");
     $(".video_code-embed video").attr("src", videoInnerSrc);
     videoLoad();
 }
