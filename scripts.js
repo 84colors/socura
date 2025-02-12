@@ -4,7 +4,7 @@
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
 
-console.log("hello from localsecorarrx");
+console.log("hello from localse");
 
 // $("body").style();
 
