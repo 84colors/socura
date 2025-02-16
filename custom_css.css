@@ -1,11 +1,35 @@
 /* test comment */
-body {
-    /* background-color: red !important; */
-}
+
 
 .is-white {
     background-color: rgba(256, 256, 256, 0.8) !important;
 }
+
+.header_video-wrapper {
+    mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)";
+        maskSize: "1000px 1000px";
+            maskPosition: "center -300px";
+        maskRepeat: "no-repeat";
+}
+
+.header-inner_video-wrapper {
+    mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)";
+        maskSize: "1000px 1000px",
+            maskPosition: "center -300px",
+        maskRepeat: "no-repeat";
+}
+
+.header-inner_button-group,
+.header-home_header,
+.header-inner_header,
+.header3d_heading,
+.header3d_text,
+.header3d_button-group {
+    transform: translateY(10px);
+    opacity: 0;
+}
+
+
 
 /* 
 https://codyhouse.co/nuggets/css-gradient-borders#:%7E:text=How%20to%20create%20gradient%20borders%20in%20CSS.%20To,linear-gradient%20%28to%20right%2C%20darkblue%2C%20darkorchid%29%201%20%3B%20%7D

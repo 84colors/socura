@@ -95,24 +95,24 @@ function pageLoad() {
     const btnHeading = $(".header-inner_button-group");
     const eagleVid = $(".header_video-wrapper");
 
-    eagleVid.css({
-        mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
-        maskPosition: "center -900px",
-        maskSize: "2000px 2000px",
-        maskRepeat: "no-repeat",
-    });
+    // eagleVid.css({
+    //     mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
+    //     maskPosition: "center -900px",
+    //     maskSize: "2000px 2000px",
+    //     maskRepeat: "no-repeat",
+    // });
 
-    loadTL.from(
+    loadTL.to(
         eagleVid,
         {
-            maskSize: "1000px 1000px",
-            maskPosition: "center -300px",
+            maskSize: "2000px 2000px",
+            maskPosition: "center -900px",
             duration: 3,
         },
         "<0.5"
     );
-    loadTL.from(heading, { y: 10, opacity: 0, duration: 1 }, "<0.5");
-    loadTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 }, "<0.75");
+    loadTL.to(heading, { y: 0, opacity: 1, duration: 1 }, "<0.5");
+    loadTL.to(btnHeading, { y: 0, opacity: 1, duration: 1 }, "<0.75");
 
     loadTL.play();
 }
@@ -135,9 +135,9 @@ function videoLoad() {
 
     headerVideo.pause();
 
-    loadVideoTL.from(heading, { y: 10, opacity: 0, duration: 1 }, "<0.5");
-    loadVideoTL.from(subheading, { y: 10, opacity: 0, duration: 1 }, "<0.25");
-    loadVideoTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 }, "<0.25");
+    loadVideoTL.to(heading, { y: 0, opacity: 1, duration: 1 }, "<0.5");
+    loadVideoTL.to(subheading, { y: 0, opacity: 1, duration: 1 }, "<0.25");
+    loadVideoTL.to(btnHeading, { y: 0, opacity: 1, duration: 1 }, "<0.25");
 
     headerVideo.play();
     loadVideoTL.play();
@@ -160,24 +160,24 @@ function pageInnerLoad() {
     const btnHeading = $(".header-inner_button-group");
     const eagleInner = $(".header-inner_video-wrapper");
 
-    eagleInner.css({
-        mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
-        maskPosition: "center -1380px",
-        maskSize: "3000px 3000px",
-        maskRepeat: "no-repeat",
-    });
+    // eagleInner.css({
+    //     mask: "url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg)",
+    //     maskPosition: "center -1380px",
+    //     maskSize: "3000px 3000px",
+    //     maskRepeat: "no-repeat",
+    // });
 
-    loadInnerTL.from(
+    loadInnerTL.to(
         eagleInner,
         {
-            maskSize: "1000px 1000px",
-            maskPosition: "center -300px",
+            maskSize: "3000px 3000px",
+            maskPosition: "center -1380px",
             duration: 3,
         },
         "<0.5"
     );
-    loadInnerTL.from(heading, { y: 10, opacity: 0, duration: 1 }, "<0.5");
-    loadInnerTL.from(btnHeading, { y: 10, opacity: 0, duration: 1 }, "<0.75");
+    loadInnerTL.to(heading, { y: 0, opacity: 1, duration: 1 }, "<0.5");
+    loadInnerTL.to(btnHeading, { y: 0, opacity: 1, duration: 1 }, "<0.75");
 
     loadInnerTL.play();
 }
