@@ -167,8 +167,12 @@ function pageInnerLoad() {
     //     maskRepeat: "no-repeat",
     // });
 
-    loadInnerTL.to(
+    loadInnerTL.fromTo(
         eagleInner,
+        {
+            maskSize: "1000px 1000px",
+            maskPosition: "center -380px",
+        },
         {
             maskSize: "3000px 3000px",
             maskPosition: "center -1380px",
