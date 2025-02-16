@@ -102,8 +102,13 @@ function pageLoad() {
     //     maskRepeat: "no-repeat",
     // });
 
-    loadTL.to(
+    loadTL.fromTo(
         eagleVid,
+        {
+            maskSize: "1000px 1000px",
+            maskPosition: "center -300px",
+            duration: 3,
+        },
         {
             maskSize: "2000px 2000px",
             maskPosition: "center -900px",
