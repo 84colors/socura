@@ -110,8 +110,8 @@ function pageLoad() {
             duration: 3,
         },
         {
-            maskSize: "2000px 2000px",
-            maskPosition: "center -900px",
+            maskSize: "2300px 2300px",
+            maskPosition: "center -1055px",
             duration: 3,
         },
         "<0.5"
