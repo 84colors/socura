@@ -106,7 +106,7 @@ function pageLoad() {
         eagleVid,
         {
             maskSize: "1000px 1000px",
-            maskPosition: "center -300px",
+            maskPosition: "center -285px",
             duration: 3,
         },
         {
@@ -176,7 +176,7 @@ function pageInnerLoad() {
         eagleInner,
         {
             maskSize: "1000px 1000px",
-            maskPosition: "center -380px",
+            maskPosition: "center -293px",
         },
         {
             maskSize: "3000px 3000px",
