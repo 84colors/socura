@@ -6,16 +6,16 @@
 
 .header_video-wrapper {
     mask: url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg);
-    mask-size: "1000px 1000px";
-    mask-position: "center -300px";
-    mask-repeat: "no-repeat";
+    mask-size: 1000px 1000px;
+    mask-position: center -300px;
+    mask-repeat: no-repeat;
 }
 
 .header-inner_video-wrapper {
     mask: url(https://cdn.prod.website-files.com/6746fd833eeceb77c17d0c5d/67653aedcd2dd6bb843d036e_birdie.svg);
-    mask-size: "1000px 1000px";
-    mask-position: "center -300px";
-    mask-repeat: "no-repeat";
+    mask-size: 1000px 1000px;
+    mask-position: center -300px;
+    mask-repeat: no-repeat;
 }
 
 .header-inner_button-group,
