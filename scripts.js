@@ -472,6 +472,22 @@ jQuery(document).ready(function ($) {
             dots: false,
             prevArrow: "[blog-arrow-prev]",
             nextArrow: "[blog-arrow-next]",
+            responsive: [
+                {
+                    breakpoint: 991,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1,
+                    },
+                },
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                    },
+                },
+            ],
         });
 
         blogStatus.css("width", (1 / slick.slideCount) * 100 + "%");
