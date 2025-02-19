@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: aqua;">
+
+    <video class="transparent-video" autoplay="" loop="" muted="" playsinline="" data-webm="0001.webm" data-mov="switch03.mp4" style="min-width:100%; min-height:100%; width: 73.33em; height: 55.56em">
+        <source src="0001.webm" type="video/webm" />
+        <!-- <source src="0001.mp4" type="video/mp4" /> -->
+        <!--<img src="https://uploads-ssl.webflow.com/60d066fece4ef21428fd3782/613235d2a0e8acb8911e2448_hero.png" />-->
+    </video>
+
+    <script>
+        function supportsHEVCAlpha() {
+            const navigator = window.navigator;
+            const ua = navigator.userAgent.toLowerCase()
+            const hasMediaCapabilities = !!(navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo)
+            const isSafari = ((ua.indexOf('safari') != -1) && (!(ua.indexOf('chrome') != -1) && (ua.indexOf('version/') != -1)))
+            return isSafari && hasMediaCapabilities
+        }
+
+        let videos = document.querySelectorAll('.transparent-video');
+        videos.forEach(function (video) {
+            video.src = supportsHEVCAlpha() ? video.dataset.mov : video.dataset.webm;
+        })
+    </script>
+</body>
+</html>

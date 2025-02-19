@@ -148,10 +148,30 @@ function videoLoad() {
     loadVideoTL.play();
 }
 //Check if on video page and local is not set
+function supportsHEVCAlpha() {
+    const navigator = window.navigator;
+    const ua = navigator.userAgent.toLowerCase();
+    const hasMediaCapabilities = !!(
+        navigator.mediaCapabilities && navigator.mediaCapabilities.decodingInfo
+    );
+    const isSafari =
+        ua.indexOf("safari") != -1 &&
+        !(ua.indexOf("chrome") != -1) &&
+        ua.indexOf("version/") != -1;
+    return isSafari && hasMediaCapabilities;
+}
+
 if ($(".header1_video-wrapper").length) {
-    const videoInnerSrc = $(".video_code-embed").attr("data-src");
+    const videoInnerWebm = $(".video_code-embed").attr("data-src");
+    const videoInnerMov = $(".video_code-embed").attr("data-mov");
     // const videoInnerSrc = $(".steps-link_video").attr("data-src");
-    $(".video_code-embed video").attr("src", videoInnerSrc);
+    // $(".video_code-embed video").attr("src", videoInnerSrc);
+
+    let videos = document.querySelectorAll(".video_code-embed video");
+    videos.forEach(function (video) {
+        video.src = supportsHEVCAlpha() ? videoInnerMov : videoInnerWebm;
+    });
+
     videoLoad();
 }
 
@@ -433,7 +453,6 @@ if ($(".eagle_background-video-wrapper").length) {
 }
 
 //Sliders
-
 jQuery(document).ready(function ($) {
     if ($(".usecases_slides-wrap").length) {
         var usesSlick = $(".usecases_slides-wrap");
