@@ -175,6 +175,13 @@ if ($(".header1_video-wrapper").length) {
     videoLoad();
 }
 
+//Fix rive grad in Safari
+if (supportsHEVCAlpha()) {
+    $(".lottie_grad.is-rive").hide();
+    $(".lottie_grad.is-video").show();
+    console.log("safari");
+}
+
 // ---------------------
 //Page load eagle for inner with full video
 
