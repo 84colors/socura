@@ -13,182 +13,251 @@
             font-family: Arial, sans-serif;
         }
 
-        .accordion {
-            width: 420px;
-            background: white;
-            border-radius: 6px;
-            box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+        .visuallyhidden {
+            border: 0 !important;
+            clip: rect(0 0 0 0) !important;
+            height: 1px !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            padding: 0 !important;
+            position: absolute !important;
+            width: 1px !important;
         }
 
-        .accordion-header {
-            width: 100%;
-            text-align: left;
-            padding: 15px;
-            background: #3498db;
-            color: white;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            font-size: 18px;
-            margin-bottom: 2px;
-            user-select: none;
-            border-radius: 6px 6px 0 0;
-            transition: background-color 0.3s ease;
+        h3,
+        h4,
+        p {
+            margin: 0;
+            padding: 0;
         }
 
-        .accordion-header:hover {
-            background: #2980b9;
+        h3 {
+            font-size: 1.125rem;
+            padding: 0 0 15px;
+            color: #f05022;
+            transition: padding 0.3s ease;
         }
 
-        .accordion-item:not(:last-child) .accordion-header {
-            border-radius: 6px 6px 0 0;
-        }
-
-        .accordion-panel {
-            overflow: hidden;
-            height: 0;
-            opacity: 0;
-            pointer-events: none;
-            background: #ecf0f1;
-            border-radius: 0 0 6px 6px;
-            padding: 0 15px;
-            box-sizing: border-box;
-        }
-
-        .accordion-panel.active {
-            pointer-events: auto;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-
-        .accordion-panel p {
-            margin: 0 0 10px;
-        }
-
-        .accordion-panel img {
-            max-width: 100%;
-            border-radius: 4px;
+        .x-schedule-trigger {
             display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            text-decoration: none;
+            z-index: 1;
+        }
+
+        .x-schedule-trigger:before {
+            font-size: 18px;
+            content: "+";
+            display: block;
+            width: 1.5em;
+            height: 1.5em;
+            background: #f05022;
+            color: white;
+            line-height: 1.4em;
+            text-align: center;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .x-day-group {
+            padding: 15px 25px;
+            will-change: opacity, transform;
+            opacity: 1;
+            transform: transformX(0);
+        }
+
+        h3+.x-day-group {
+            padding-top: 0;
+        }
+
+        .is-active h3 {
+            padding: 0 25px 15px;
+        }
+
+        .is-active .x-schedule-trigger {
+            display: none;
+        }
+
+        .x-accordion {
+            display: flex;
+            overflow: hidden;
+            max-width: 575px;
+            margin: 25px auto;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .x-accordion-panel {
+            flex: initial;
+            min-width: 80px;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            position: relative;
+            margin-left: -1px;
+            width: 10%;
+            will-change: width;
+            transition: 0.3s ease;
+        }
+
+        .x-accordion-panel:first-child {
+            margin-left: 0;
+        }
+
+        .x-accordion-panel.is-active {
+            width: 80%;
+        }
+
+        .x-accordion-content {
+            overflow: hidden;
+            padding: 16px;
+            white-space: nowrap;
+        }
+
+        .x-accordion-content>*:first-child {
+            margin-top: 0;
+        }
+
+        .x-accordion-content h3 {
+            text-transform: uppercase;
+        }
+
+        .x-is-power-hour {
+            background-color: #f05022;
+            color: white;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="accordion">
-        <div class="accordion-item">
-            <button class="accordion-header" aria-expanded="false" aria-controls="panel1" id="header1">Section 1</button>
-            <div class="accordion-panel" id="panel1" role="region" aria-labelledby="header1">
-                <p>Content for section 1</p>
-                <img src="https://picsum.photos/id/1015/400/200" alt="Image 1" />
+    <div class="x-accordion">
+        <div class="x-accordion-panel is-active">
+            <a href="#" class="x-schedule-trigger"><span class="visuallyhidden">Expand Monday Schedule</span></a>
+            <div class="x-accordion-content">
+                <h3>Mon<span class="visuallyhidden">day</span></h3>
+                <div class="x-day-group">
+                    <h4>Breakfast</h4>
+                    <p>8:00AM - 9:00AM</p>
+                </div>
+                <div class="x-day-group">
+                    <h4>General Hours</h4>
+                    <p>10:15AM - 1:45PM<br />
+                        3:30PM - 6:00PM</p>
+                </div>
+                <div class="x-day-group x-is-power-hour">
+                    <h4>Demo Power Hour</h4>
+                    <p>4:00PM - 5:00PM</p>
+                </div>
+                <div class="x-day-group">
+                    <h4>Happy Hour</h4>
+                    <p>6:00PM - 7:00PM</p>
+                </div>
             </div>
         </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header" aria-expanded="false" aria-controls="panel2" id="header2">Section 2</button>
-            <div class="accordion-panel" id="panel2" role="region" aria-labelledby="header2">
-                <p>Content for section 2</p>
-                <img src="https://picsum.photos/id/1016/400/200" alt="Image 2" />
+        <div class="x-accordion-panel">
+            <a href="#" class="x-schedule-trigger"><span class="visuallyhidden">Expand Tuesday Schedule</span></a>
+            <div class="x-accordion-content">
+                <h3>Tues<span class="visuallyhidden">day</span></h3>
+                <div class="x-day-group">
+                    <h4>Breakfast</h4>
+                    <p>8:30AM - 9:30AM</p>
+                </div>
+                <div class="x-day-group">
+                    <h4>General Hours</h4>
+                    <p>10:15AM - 1:45PM<br />
+                        3:30PM - 6:00PM</p>
+                </div>
+                <div class="x-day-group x-is-power-hour">
+                    <h4>Demo Power Hour</h4>
+                    <p>3:00PM - 4:00PM</p>
+                </div>
+                <div class="x-day-group">
+                    <h4>Happy Hour</h4>
+                    <p>6:00PM - 7:00PM</p>
+                </div>
             </div>
         </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header" aria-expanded="false" aria-controls="panel3" id="header3">Section 3</button>
-            <div class="accordion-panel" id="panel3" role="region" aria-labelledby="header3">
-                <p>Content for section 3</p>
-                <img src="https://picsum.photos/id/1018/400/200" alt="Image 3" />
+        <div class="x-accordion-panel">
+            <a href="#" class="x-schedule-trigger"><span class="visuallyhidden">Expand Wednesday Schedule</span></a>
+            <div class="x-accordion-content">
+                <h3>Wed<span class="visuallyhidden">nesday</span></h3>
+                <div class="x-day-group">
+                    <h4>Breakfast</h4>
+                    <p>8:00AM - 9:00AM</p>
+                </div>
+                <div class="x-day-group">
+                    <h4>General Hours</h4>
+                    <p>10:15AM - 1:45PM<br />
+                        3:30PM - 6:00PM</p>
+                </div>
+                <div class="x-day-group x-is-power-hour">
+                    <h4>Demo Power Hour</h4>
+                    <p>4:00PM - 5:00PM</p>
+                </div>
+                <div class="x-day-group">
+                    <h4>Happy Hour</h4>
+                    <p>6:00PM - 7:00PM</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <script>
-        const headers = document.querySelectorAll('.accordion-header');
-        let openPanel = null;
+        var $xAccordTriggers = jQuery(".x-schedule-trigger");
+        var $xAccordPanels = jQuery(".x-accordion-panel");
+        var $xAccordDayGroups = jQuery(".x-day-group");
 
-        headers.forEach(header => {
-            header.addEventListener('click', () => {
-                const panel = header.nextElementSibling;
+        // Animate schedule items in staggered
+        function staggerDayGroups(items) {
+            var $dayGroups = items;
+            var tl = new TimelineLite();
+            tl.staggerTo($dayGroups, 0.6, { opacity: 1, x: 0, delay: 0.3 }, 0.15, 0)
+        };
 
-                // Accessibility toggle aria-expanded
-                const isExpanded = header.getAttribute('aria-expanded') === 'true';
+        // Hide all day groups without transition
+        function hideDayGroups() {
+            console.log("Hiding all day groups");
+            var tl = new TimelineLite();
+            tl.to($xAccordDayGroups, 0, { opacity: 0, x: -50 });
+        };
 
-                if (panel === openPanel) {
-                    closePanel(panel, header);
-                    openPanel = null;
-                    return;
-                }
+        // Setup
+        function setUpAccordion() {
+            var $accordion = jQuery(".x-accordion");
 
-                if (openPanel) {
-                    const openHeader = openPanel.previousElementSibling;
-                    closePanel(openPanel, openHeader);
-                }
+            if ($accordion.length > 0) {
 
-                openPanel = panel;
-                openAccordionPanel(panel, header);
-            });
-        });
+                // Bind the expansion to the trigger links
+                $xAccordTriggers.on("click", function () {
+                    var $parent = jQuery(this).parent(".x-accordion-panel");
+                    var $dayGroups = $parent.find(".x-day-group");
 
-        function openAccordionPanel(panel, header) {
-            const elements = panel.children;
+                    $xAccordPanels.removeClass("is-active");
+                    $parent.addClass("is-active");
+                    hideDayGroups();
+                    staggerDayGroups($dayGroups);
+                    return false;
+                });
 
-            panel.classList.add('active');
-            header.setAttribute('aria-expanded', 'true');
+                // Hide all groups initially
+                hideDayGroups();
 
-            // Animate panel height and opacity first
-            gsap.fromTo(panel,
-                { height: 0, opacity: 0 },
-                {
-                    height: 'auto',
-                    opacity: 1,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    onComplete: () => {
-                        // Animate children staggered
-                        gsap.fromTo(elements,
-                            { opacity: 0, y: 20, scale: 0.95 },
-                            {
-                                opacity: 1,
-                                y: 0,
-                                scale: 1,
-                                duration: 0.4,
-                                ease: "power2.out",
-                                stagger: 0.15
-                            }
-                        );
-                    }
-                }
-            );
-        }
+                // Show the initial active panel
+                var $initialGroups = jQuery(".is-active .x-day-group");
+                staggerDayGroups($initialGroups);
 
-        function closePanel(panel, header) {
-            const elements = panel.children;
+            }
+        };
 
-            header.setAttribute('aria-expanded', 'false');
-
-            // Animate children out in reverse stagger
-            gsap.to(elements, {
-                opacity: 0,
-                y: 20,
-                scale: 0.95,
-                duration: 0.3,
-                ease: "power2.in",
-                stagger: {
-                    each: 0.1,
-                    from: "end"
-                }
-            });
-
-            // Collapse panel after children animation
-            gsap.to(panel, {
-                height: 0,
-                opacity: 0,
-                duration: 0.4,
-                delay: 0.3 + (elements.length * 0.1),
-                ease: "power2.in",
-                onComplete: () => panel.classList.remove('active')
-            });
-        }
+        setUpAccordion();
     </script>
 
 </body>
