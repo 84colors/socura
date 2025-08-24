@@ -4,7 +4,7 @@ const isLocal = true;
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
 
-console.log("hello from localse");
+console.log("hello from localsslider");
 
 // ---------------------------------
 //TABS ANIMATION
@@ -16,56 +16,52 @@ let tabContainer = $("[tabs='tabs-v']");
 // Activate on scroll
 $(tabContainer).each(function () {
     let items = $(this).find("[tabs='tabs-items'] > div");
-    // let videos = $(this).find(".steps-link_video").hide();
     let content = $(this).find(".tab_text-overlay");
     let image = $(this).find(".tab_image");
-    // let arrow = $(this).find(".steps-link_item-arrow");
     let heading = $(this).find(".tab_title");
     let headingVert = $(this).find(".tab_title-vertical");
-    // let number = $(this).find(".steps_row-number");
-    // let border = $(this).find(".steps-link_item-border");
 
     let prevIndex = -1;
 
-    gsap.defaults({ duration: 0.5, ease: "power2.out" });
-    gsap.set(content, { width: 90 });
+    //RESETS
+    gsap.defaults({ duration: 1.25, ease: "power2.out" });
+    gsap.set(items, { width: "92px" });
+    content.hide();
+    gsap.set(content, { opacity: 0, yPercent: 5 });
+    gsap.set(image, { opacity: 0 });
+    gsap.set(heading, { opacity: 0 });
 
     function triggerTabs(index) {
         // CLOSE STATE
         if (prevIndex > -1) {
-            // videos.eq(prevIndex).hide();
-            gsap.to(items.eq(prevIndex), { width: 92 });
-            gsap.to(heading.eq(prevIndex), { opacity: 0 }, 0);
-            gsap.to(content.eq(prevIndex), { opacity: 0 }, 0);
-            gsap.to(image.eq(prevIndex), { opacity: 0 }, "<0.1");
-            gsap.to(headingVert.eq(prevIndex), { opacity: 1 }, 0);
+            content.eq(prevIndex).hide();
 
-            // gsap.to(content.eq(prevIndex), { width: 90 });
-            // gsap.to(arrow.eq(prevIndex), { rotationZ: 0 }, 0);
-            // gsap.to(heading.eq(prevIndex), { color: "#fff" }, 0);
-            // gsap.to(
-            //     number.eq(prevIndex),
-            //     { color: "#88939f", borderColor: "#2d3a47" },
-            //     0
-            // );
-            // gsap.to(border.eq(prevIndex), { width: 0 }, 0);
+            let tl = gsap.timeline({ paused: true });
+
+            tl.to(items.eq(prevIndex), { width: "92px" });
+            tl.to(content.eq(prevIndex), { opacity: 0, yPercent: 5 }, 0);
+            tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
+            tl.to(image.eq(prevIndex), { opacity: 0 }, "0.1");
+            tl.to(headingVert.eq(prevIndex), { opacity: 1 }, 0);
+
+            tl.play();
         }
         // OPEN STATE
-        // videos.eq(index).show();
-        gsap.to(items.eq(index), { width: "100%" });
-        gsap.to(heading.eq(index), { opacity: 1 });
-        gsap.to(content.eq(index), { opacity: 1 });
-        gsap.to(image.eq(index), { opacity: 1 }, "<0.1");
-        gsap.to(headingVert.eq(index), { opacity: 0 }, 0);
-        // gsap.to(arrow.eq(index), { rotationZ: 90 }, 0);
-        // gsap.to(heading.eq(index), { color: "#54b6b1" }, 0);
-        // gsap.to(number.eq(index), { color: "#fff", borderColor: "#54b6b1" }, 0);
-        // gsap.to(border.eq(index), { width: "100%" }, "<0.1");
-        // videos.eq(index).find("video")[0].play();
+        content.eq(index).show();
 
-        // console.log(videos.eq(index));
+        let tlMain = gsap.timeline({ paused: true });
+        tlMain.to(items.eq(index), { width: "100%" });
+        tlMain.to(heading.eq(index), { opacity: 1 }, "0.35");
+        tlMain.to(image.eq(index), { opacity: 1 }, "0.45");
+        tlMain.to(
+            content.eq(index),
+            { opacity: 1, yPercent: 0, duration: 0.5 },
+            "<0.8"
+        );
+        tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
 
-        // videos.eq(index).click();
+        tlMain.play();
+
         // track previous
         prevIndex = index;
     }
@@ -77,7 +73,7 @@ $(tabContainer).each(function () {
     //         scrollTrigger: {
     //             // trigger: ".section_steps",
     //             trigger: tabContainer,
-    //             start: "top 20%",
+    //             start: "top center",
     //             ease: "none",
     //             onEnter: () => triggerTabs(0),
     //         },
@@ -85,13 +81,16 @@ $(tabContainer).each(function () {
     // }
     // scrollToTabs();
 
+    //SHOW FIRST TAB
     triggerTabs(0);
 
     items.each(function (index) {
         let itemIndex = index;
-        // let link = $(this).find(".tab_trigger");
         $(this).on("click", function () {
             if (itemIndex !== prevIndex) triggerTabs(itemIndex);
+
+            // items.removeClass("is-open");
+            // $(this).addClass("is-open");
         });
     });
 });
