@@ -1,5 +1,5 @@
 `use strict`;
-const isLocal = true;
+// const isLocal = true;
 
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
