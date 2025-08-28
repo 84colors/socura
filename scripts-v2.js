@@ -1,5 +1,5 @@
 `use strict`;
-const isLocal = true;
+// const isLocal = true;
 
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
@@ -12,6 +12,7 @@ console.log("hello from stack");
 
 // Tabs
 let tabContainer = $("[tabs='tabs-v']");
+let tabContainerImg = $("[tabs='tabs-img']");
 let tabContainerStack = $("[tabs='tabs-stack']");
 let tabToggle = $("[tabs='tabs-toggle']");
 let tabContact = $("[tabs='tabs-contact']");
@@ -98,6 +99,74 @@ $(tabContainer).each(function () {
     });
 });
 
+// Tabs IMG
+$(tabContainerImg).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let content = $(this).find(".tab_text-overlay-grid");
+    let image = $(this).find(".tab_image-sq");
+    let heading = $(this).find(".tab_title");
+    let headingVert = $(this).find(".tab_title-vertical");
+
+    let prevIndex = -1;
+
+    //RESETS
+    gsap.defaults({ duration: 1.25, ease: "power2.out" });
+    gsap.set(items, { width: "92px" });
+    content.hide();
+    gsap.set(content, { opacity: 0, yPercent: 5 });
+    gsap.set(image, { opacity: 0 });
+    gsap.set(heading, { opacity: 0 });
+
+    function triggerTabs(index) {
+        // CLOSE STATE
+        if (prevIndex > -1) {
+            content.eq(prevIndex).hide();
+
+            let tl = gsap.timeline({ paused: true });
+
+            tl.to(items.eq(prevIndex), { width: "92px" });
+            tl.to(content.eq(prevIndex), { opacity: 0, yPercent: 5 }, 0);
+            tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
+            tl.to(image.eq(prevIndex), { opacity: 0 }, "0.1");
+            tl.to(headingVert.eq(prevIndex), { opacity: 1, duration: 0.1 }, 0);
+
+            tl.play();
+        }
+        // OPEN STATE
+        content.eq(index).show();
+
+        let tlMain = gsap.timeline({ paused: true });
+        tlMain.to(items.eq(index), { width: "100%" });
+        tlMain.to(heading.eq(index), { opacity: 1 }, "0.35");
+        tlMain.to(image.eq(index), { opacity: 1, height: "580px" }, "0.45");
+        tlMain.to(
+            content.eq(index),
+            { opacity: 1, yPercent: 0, duration: 0.5 },
+            "<0.5"
+        );
+        tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
+
+        tlMain.play();
+
+        // track previous
+        prevIndex = index;
+    }
+
+    //SHOW FIRST TAB
+    triggerTabs(0);
+
+    items.each(function (index) {
+        let itemIndex = index;
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
+
+            // items.removeClass("is-open");
+            // $(this).addClass("is-open");
+        });
+    });
+});
+
+// -------
 // Tabs STACKED
 $(tabContainerStack).each(function () {
     let items = $(this).find("[tabs='tabs-items'] > div");
@@ -172,77 +241,22 @@ $(tabContainerStack).each(function () {
     }
 
     //SHOW FIRST TAB
-    // triggerTabs(0);
+    triggerTabs(0);
     //On scroll here? scroll trigger function onEnter
     //make a new timeline
-    let trigger = $(this);
-    function scrollToTabs() {
-        let tlTabs = gsap.timeline({
-            scrollTrigger: {
-                trigger: trigger,
-                start: "top center",
-                // markers: "true",
-                ease: "none",
-                onEnter: () => triggerTabs(0),
-            },
-        });
-    }
-    scrollToTabs();
-
-    items.each(function (index) {
-        let itemIndex = index;
-        $(this).on("click", function () {
-            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
-        });
-    });
-});
-
-// Tabs toggle PLUS
-$(tabToggle).each(function () {
-    let items = $(this).find("[tabs='tabs-items'] > div");
-    let content = $(this).find(".row_text-hidden");
-    let plus = $(this).find(".minus");
-
-    let prevIndex = -1;
-
-    //RESETS
-    gsap.defaults({ duration: 0.75, ease: "power2.out" });
-    gsap.set(content, {
-        height: "0px",
-        opacity: 0,
-    });
-    gsap.set(plus, { opacity: 1 });
-
-    function triggerTabs(index) {
-        // CLOSE STATE
-        if (prevIndex > -1) {
-            let tl = gsap.timeline({ paused: true });
-            tl.to(
-                content.eq(prevIndex),
-                { height: 0, opacity: 0, duration: 0.3 },
-                0
-            );
-            tl.to(plus.eq(prevIndex), { opacity: 0, duration: 0.3 }, 0);
-
-            tl.play();
-        }
-        // OPEN STATE
-        let tlMain = gsap.timeline({ paused: true });
-        tlMain.to(
-            content.eq(prevIndex),
-            { height: "auto", opacity: 1, duration: 0.3 },
-            0
-        );
-        tlMain.to(plus.eq(prevIndex), { opacity: 1, duration: 0.3 }, 0);
-
-        tlMain.play();
-
-        // track previous
-        prevIndex = index;
-    }
-
-    //SHOW FIRST TAB
-    triggerTabs(0);
+    // let trigger = $(this);
+    // function scrollToTabs() {
+    //     let tlTabs = gsap.timeline({
+    //         scrollTrigger: {
+    //             trigger: trigger,
+    //             start: "top center",
+    //             markers: "true",
+    //             ease: "none",
+    //             onEnter: () => triggerTabs(0),
+    //         },
+    //     });
+    // }
+    // scrollToTabs();
 
     items.each(function (index) {
         let itemIndex = index;
@@ -352,4 +366,66 @@ jQuery(document).ready(function ($) {
             }
         );
     }
+});
+
+///------------
+// Tabs tabToggle
+let toggleTab = $(".row_toggle");
+let toggleContent = $(".row_toggle").find(".row_text-hidden");
+gsap.set(toggleContent, { height: 0, opacity: 0, yPercent: -10 });
+
+$(".row_toggle").on("click", function () {
+    let toggleContentClicked = $(this).find(".row_text-hidden");
+    let toggleArrow = $(this).find(".row_icon-arrow");
+    $(this).toggleClass("is-active");
+    if ($(this).hasClass("is-active")) {
+        let tlOpen = gsap.timeline({ paused: true });
+        tlOpen.to(toggleContentClicked, {
+            height: "auto",
+            duration: 0.3,
+        });
+        tlOpen.to(toggleContentClicked, {
+            opacity: 1,
+            yPercent: 0,
+            duration: 1,
+        });
+        tlOpen.to(
+            toggleArrow,
+            {
+                rotate: "45deg",
+            },
+            0
+        );
+        tlOpen.play();
+    } else {
+        // second click
+        let tlOpen = gsap.timeline({ paused: true });
+        tlOpen.to(toggleContentClicked, {
+            height: "0",
+            duration: 0.3,
+        });
+        tlOpen.to(toggleContentClicked, {
+            opacity: 0,
+            yPercent: -10,
+            duration: 0.5,
+        });
+        tlOpen.to(
+            toggleArrow,
+            {
+                rotate: "0deg",
+            },
+            0
+        );
+        tlOpen.play();
+        console.log("closed");
+    }
+});
+
+///-------------
+// Add numbers
+
+$(".rows > div").each(function (index) {
+    let num = index + 1;
+    let formatted = (num < 10 ? "0" : "") + num;
+    $(this).find(".row_number").text(formatted);
 });
