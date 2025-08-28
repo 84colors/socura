@@ -1,10 +1,10 @@
 `use strict`;
-// const isLocal = true;
+const isLocal = true;
 
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
 
-console.log("hello from localsslider");
+console.log("hello from stack");
 
 // ---------------------------------
 //TABS ANIMATION
@@ -12,8 +12,11 @@ console.log("hello from localsslider");
 
 // Tabs
 let tabContainer = $("[tabs='tabs-v']");
+let tabContainerStack = $("[tabs='tabs-stack']");
+let tabToggle = $("[tabs='tabs-toggle']");
+let tabContact = $("[tabs='tabs-contact']");
 
-// Activate on scroll
+// Tabs horizontal
 $(tabContainer).each(function () {
     let items = $(this).find("[tabs='tabs-items'] > div");
     let content = $(this).find(".tab_text-overlay");
@@ -91,6 +94,228 @@ $(tabContainer).each(function () {
 
             // items.removeClass("is-open");
             // $(this).addClass("is-open");
+        });
+    });
+});
+
+// Tabs STACKED
+$(tabContainerStack).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let heading = $(this).find(".stat_box-title");
+    let tabBg = "rgba(3, 189, 196, 1)";
+    let scale = "1.5";
+    let padding = "24px";
+
+    if ((items[0].hasClass = "stats_box-cream")) {
+        heading = $(this).find(".stat_box-cream-title");
+        tabBg = "#f1ead8";
+        scale = "2";
+        padding = "48px";
+
+        console.log("cream!");
+    } else {
+        console.log("blue!");
+    }
+
+    // let heading = $(this).find(".stat_box-title");
+
+    let prevIndex = -1;
+
+    //RESETS
+    gsap.defaults({ duration: 0.75, ease: "power2.out" });
+    gsap.set(items, {
+        height: "70px",
+        backgroundColor: "rgba(3, 189, 196, 0)",
+        borderRightColor: "#016672",
+        color: "#ffffff",
+        paddingTop: "24px",
+        paddingLeft: "24px",
+        paddingRight: "24px",
+    });
+    gsap.set(heading, { scale: 1 });
+
+    function triggerTabs(index) {
+        // CLOSE STATE
+        if (prevIndex > -1) {
+            let tl = gsap.timeline({ paused: true });
+
+            tl.to(items.eq(prevIndex), {
+                height: "70px",
+                backgroundColor: "rgba(3, 189, 196, 0)",
+                borderRightColor: "#016672",
+                paddingTop: "24px",
+                paddingLeft: "24px",
+                paddingRight: "24px",
+            });
+            tl.to(heading.eq(prevIndex), { scale: 1, duration: 0.3 }, 0);
+            tl.to(items.eq(prevIndex), { color: "#ffffff", duration: 0.3 }, 0);
+
+            tl.play();
+        }
+        // OPEN STATE
+        let tlMain = gsap.timeline({ paused: true });
+        tlMain.to(items.eq(index), {
+            height: "400px",
+            backgroundColor: tabBg,
+            borderRightColor: "#00414f",
+            paddingTop: padding,
+            paddingLeft: padding,
+            paddingRight: padding,
+        });
+        tlMain.to(heading.eq(index), { scale: scale, duration: 0.3 }, 0);
+        tlMain.to(items.eq(index), { color: "#00414f", duration: 0.2 }, 0);
+
+        tlMain.play();
+
+        // track previous
+        prevIndex = index;
+    }
+
+    //SHOW FIRST TAB
+    // triggerTabs(0);
+    //On scroll here? scroll trigger function onEnter
+    //make a new timeline
+    let trigger = $(this);
+    function scrollToTabs() {
+        let tlTabs = gsap.timeline({
+            scrollTrigger: {
+                trigger: trigger,
+                start: "top center",
+                // markers: "true",
+                ease: "none",
+                onEnter: () => triggerTabs(0),
+            },
+        });
+    }
+    scrollToTabs();
+
+    items.each(function (index) {
+        let itemIndex = index;
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
+        });
+    });
+});
+
+// Tabs toggle PLUS
+$(tabToggle).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let content = $(this).find(".row_text-hidden");
+    let plus = $(this).find(".minus");
+
+    let prevIndex = -1;
+
+    //RESETS
+    gsap.defaults({ duration: 0.75, ease: "power2.out" });
+    gsap.set(content, {
+        height: "0px",
+        opacity: 0,
+    });
+    gsap.set(plus, { opacity: 1 });
+
+    function triggerTabs(index) {
+        // CLOSE STATE
+        if (prevIndex > -1) {
+            let tl = gsap.timeline({ paused: true });
+            tl.to(
+                content.eq(prevIndex),
+                { height: 0, opacity: 0, duration: 0.3 },
+                0
+            );
+            tl.to(plus.eq(prevIndex), { opacity: 0, duration: 0.3 }, 0);
+
+            tl.play();
+        }
+        // OPEN STATE
+        let tlMain = gsap.timeline({ paused: true });
+        tlMain.to(
+            content.eq(prevIndex),
+            { height: "auto", opacity: 1, duration: 0.3 },
+            0
+        );
+        tlMain.to(plus.eq(prevIndex), { opacity: 1, duration: 0.3 }, 0);
+
+        tlMain.play();
+
+        // track previous
+        prevIndex = index;
+    }
+
+    //SHOW FIRST TAB
+    triggerTabs(0);
+
+    items.each(function (index) {
+        let itemIndex = index;
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
+        });
+    });
+});
+
+// Tabs CONTACT
+$(tabContact).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let heading = $(this).find(".stat_box-cream-title");
+
+    let prevIndex = -1;
+
+    //RESETS
+    gsap.defaults({ duration: 0.75, ease: "power2.out" });
+    gsap.set(items, {
+        height: "70px",
+        backgroundColor: "rgba(3, 189, 196, 0)",
+        borderRightColor: "#016672",
+        color: "#ffffff",
+        paddingLeft: "24px",
+        paddingTop: "8px",
+        paddingRight: "24px",
+    });
+    gsap.set(heading, { scale: 1 });
+
+    function triggerTabs(index) {
+        // CLOSE STATE
+        if (prevIndex > -1) {
+            let tl = gsap.timeline({ paused: true });
+
+            tl.to(items.eq(prevIndex), {
+                height: "70px",
+                backgroundColor: "#016672",
+                borderRightColor: "#016672",
+                paddingLeft: "24px",
+                paddingTop: "8px",
+                paddingRight: "24px",
+            });
+            tl.to(heading.eq(prevIndex), { scale: 1, duration: 0.3 }, 0);
+            tl.to(items.eq(prevIndex), { color: "#ffffff", duration: 0.3 }, 0);
+
+            tl.play();
+        }
+        // OPEN STATE
+        let tlMain = gsap.timeline({ paused: true });
+        tlMain.to(items.eq(index), {
+            height: "auto",
+            backgroundColor: "rgba(255, 255, 255, 1)",
+            borderRightColor: "#00414f",
+            paddingLeft: "48px",
+            paddingRight: "48px",
+            paddingTop: "48px",
+        });
+        tlMain.to(heading.eq(index), { scale: 2, duration: 0.3 }, 0);
+        tlMain.to(items.eq(index), { color: "#00414f", duration: 0.2 }, 0);
+
+        tlMain.play();
+
+        // track previous
+        prevIndex = index;
+    }
+
+    //SHOW FIRST TAB
+    triggerTabs(0);
+
+    items.each(function (index) {
+        let itemIndex = index;
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
         });
     });
 });
