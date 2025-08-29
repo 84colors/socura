@@ -1,5 +1,5 @@
 `use strict`;
-// const isLocal = true;
+const isLocal = true;
 
 // drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
 // https://css-tricks.com/svg-line-animation-works/
@@ -170,18 +170,19 @@ $(tabContainerImg).each(function () {
 // Tabs STACKED
 $(tabContainerStack).each(function () {
     let items = $(this).find("[tabs='tabs-items'] > div");
-    let heading = $(this).find(".stat_box-title");
+    let heading = $(this).find(".stat_box-cream-title");
     let tabBg = "rgba(3, 189, 196, 1)";
-    let scale = "1.5";
+    let scale = "1.2";
     let padding = "24px";
 
-    if ((items[0].hasClass = "stats_box-cream")) {
-        heading = $(this).find(".stat_box-cream-title");
+    if ($(items[0]).hasClass("stats_box-cream")) {
+        // heading = $(this).find(".stat_box-cream-title");
         tabBg = "#f1ead8";
         scale = "2";
         padding = "48px";
 
         console.log("cream!");
+        console.log(items[0]);
     } else {
         console.log("blue!");
     }
@@ -369,7 +370,7 @@ jQuery(document).ready(function ($) {
 });
 
 ///------------
-// Tabs tabToggle
+// Tabs tabToggle FAQ
 let toggleTab = $(".row_toggle");
 let toggleContent = $(".row_toggle").find(".row_text-hidden");
 gsap.set(toggleContent, { height: 0, opacity: 0, yPercent: -10 });
