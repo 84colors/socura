@@ -6,6 +6,18 @@ const isLocal = true;
 
 console.log("hello from stack");
 
+//-----
+// CHECK IF MOBILE VIEW
+const mm = gsap.matchMedia();
+// let mm = gsap.matchMedia();
+
+// mm.add("(max-width: 1100px)", () => {
+//     console.log("mobile");
+// });
+// mm.add("(min-width: 1101px)", () => {
+//     console.log("desktop");
+// });
+
 // ---------------------------------
 //TABS ANIMATION
 // create timeline with steps for each tab, then play each step on click
@@ -29,40 +41,73 @@ $(tabContainer).each(function () {
 
     //RESETS
     gsap.defaults({ duration: 1.25, ease: "power2.out" });
-    gsap.set(items, { width: "92px" });
+    //Mobile if/else
+    // gsap.set(items, { width: "92px" });
+    mm.add("(max-width: 1100px)", () => {
+        gsap.set(items, { height: "92px" });
+        gsap.set(items, { width: "100%" });
+        gsap.to(headingVert, { opacity: 0 }, 0);
+        gsap.to(heading, { opacity: 1 }, 0);
+    });
+    mm.add("(min-width: 1101px)", () => {
+        gsap.set(items, { height: "600px" });
+        gsap.set(items, { width: "92px" });
+    });
+
     content.hide();
     gsap.set(content, { opacity: 0, yPercent: 5 });
     gsap.set(image, { opacity: 0 });
-    gsap.set(heading, { opacity: 0 });
+    // gsap.set(heading, { opacity: 0 });
 
     function triggerTabs(index) {
+        // let mm = gsap.matchMedia();
+
         // CLOSE STATE
         if (prevIndex > -1) {
             content.eq(prevIndex).hide();
 
             let tl = gsap.timeline({ paused: true });
 
-            tl.to(items.eq(prevIndex), { width: "92px" });
-            tl.to(content.eq(prevIndex), { opacity: 0, yPercent: 5 }, 0);
-            tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
-            tl.to(image.eq(prevIndex), { opacity: 0 }, "0.1");
-            tl.to(headingVert.eq(prevIndex), { opacity: 1 }, 0);
+            //mobile if/else
 
+            mm.add("(max-width: 1100px)", () => {
+                tl.to(items.eq(prevIndex), { height: "72px" });
+                tl.to(items.eq(prevIndex), { width: "100%" });
+            });
+            mm.add("(min-width: 1101px)", () => {
+                tl.to(items.eq(prevIndex), { width: "92px" });
+                tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
+                tl.to(headingVert.eq(prevIndex), { opacity: 1 }, 0);
+            });
+            // tl.to(items.eq(prevIndex), { width: "92px" });
+
+            tl.to(content.eq(prevIndex), { opacity: 0, yPercent: 5 }, 0);
+            tl.to(image.eq(prevIndex), { opacity: 0 }, "0.1");
             tl.play();
         }
         // OPEN STATE
         content.eq(index).show();
 
         let tlMain = gsap.timeline({ paused: true });
+        mm.add("(max-width: 1100px)", () => {
+            tlMain.to(items.eq(index), { height: "540px" });
+            tlMain.to(content.eq(index), { height: "520px" }, 0);
+            tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
+            tlMain.to(heading.eq(index), { opacity: 1 }, 0);
+        });
+        mm.add("(min-width: 1101px)", () => {
+            tlMain.to(items.eq(index), { width: "100%" });
+            tlMain.to(content.eq(index), { height: "580px" }, 0);
+            tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
+            tlMain.to(heading.eq(index), { opacity: 1 }, "0.35");
+        });
         tlMain.to(items.eq(index), { width: "100%" });
-        tlMain.to(heading.eq(index), { opacity: 1 }, "0.35");
         tlMain.to(image.eq(index), { opacity: 1 }, "0.45");
         tlMain.to(
             content.eq(index),
             { opacity: 1, yPercent: 0, duration: 0.5 },
             "<0.8"
         );
-        tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
 
         tlMain.play();
 
@@ -71,20 +116,6 @@ $(tabContainer).each(function () {
     }
 
     //On scroll here? scroll trigger function onEnter
-    //make a new timeline
-    // function scrollToTabs() {
-    //     let tlTabs = gsap.timeline({
-    //         scrollTrigger: {
-    //             // trigger: ".section_steps",
-    //             trigger: tabContainer,
-    //             start: "top center",
-    //             ease: "none",
-    //             onEnter: () => triggerTabs(0),
-    //         },
-    //     });
-    // }
-    // scrollToTabs();
-
     //SHOW FIRST TAB
     triggerTabs(0);
 
@@ -92,9 +123,6 @@ $(tabContainer).each(function () {
         let itemIndex = index;
         $(this).on("click", function () {
             if (itemIndex !== prevIndex) triggerTabs(itemIndex);
-
-            // items.removeClass("is-open");
-            // $(this).addClass("is-open");
         });
     });
 });
@@ -111,11 +139,23 @@ $(tabContainerImg).each(function () {
 
     //RESETS
     gsap.defaults({ duration: 1.25, ease: "power2.out" });
-    gsap.set(items, { width: "92px" });
+    // gsap.set(items, { width: "92px" });
     content.hide();
     gsap.set(content, { opacity: 0, yPercent: 5 });
     gsap.set(image, { opacity: 0 });
     gsap.set(heading, { opacity: 0 });
+
+    mm.add("(max-width: 1100px)", () => {
+        gsap.set(items, { height: "92px" });
+        gsap.set(items, { width: "100%" });
+        gsap.to(headingVert, { opacity: 0 }, 0);
+        gsap.to(heading, { opacity: 1 }, 0);
+    });
+    mm.add("(min-width: 1101px)", () => {
+        gsap.set(items, { height: "600px" });
+        gsap.set(items, { width: "92px" });
+        gsap.set(heading, { opacity: 0 });
+    });
 
     function triggerTabs(index) {
         // CLOSE STATE
@@ -123,10 +163,19 @@ $(tabContainerImg).each(function () {
             content.eq(prevIndex).hide();
 
             let tl = gsap.timeline({ paused: true });
-
-            tl.to(items.eq(prevIndex), { width: "92px" });
+            mm.add("(max-width: 1100px)", () => {
+                tl.to(items.eq(prevIndex), { height: "72px" });
+                tl.to(items.eq(prevIndex), { width: "100%" });
+                tl.to(heading.eq(prevIndex), { opacity: 1 }, 0);
+            });
+            mm.add("(min-width: 1101px)", () => {
+                tl.to(items.eq(prevIndex), { width: "92px" });
+                tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
+                tl.to(headingVert.eq(prevIndex), { opacity: 1 }, 0);
+            });
+            // tl.to(items.eq(prevIndex), { width: "92px" });
             tl.to(content.eq(prevIndex), { opacity: 0, yPercent: 5 }, 0);
-            tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
+            // tl.to(heading.eq(prevIndex), { opacity: 0 }, 0);
             tl.to(image.eq(prevIndex), { opacity: 0 }, "0.1");
             tl.to(headingVert.eq(prevIndex), { opacity: 1, duration: 0.1 }, 0);
 
@@ -136,9 +185,24 @@ $(tabContainerImg).each(function () {
         content.eq(index).show();
 
         let tlMain = gsap.timeline({ paused: true });
-        tlMain.to(items.eq(index), { width: "100%" });
+
+        mm.add("(max-width: 1100px)", () => {
+            tlMain.to(items.eq(index), { height: "540px" });
+            tlMain.to(content.eq(index), { height: "520px" }, 0);
+            tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
+            tlMain.to(heading.eq(index), { opacity: 1 }, 0);
+            tlMain.to(image.eq(index), { opacity: 1, height: "340px" }, "0.45");
+        });
+        mm.add("(min-width: 1101px)", () => {
+            tlMain.to(items.eq(index), { width: "100%" });
+            tlMain.to(content.eq(index), { height: "580px" }, 0);
+            tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
+            tlMain.to(heading.eq(index), { opacity: 1 }, "0.35");
+            tlMain.to(image.eq(index), { opacity: 1, height: "580px" }, "0.45");
+        });
+
+        // tlMain.to(items.eq(index), { width: "100%" });
         tlMain.to(heading.eq(index), { opacity: 1 }, "0.35");
-        tlMain.to(image.eq(index), { opacity: 1, height: "580px" }, "0.45");
         tlMain.to(
             content.eq(index),
             { opacity: 1, yPercent: 0, duration: 0.5 },
@@ -243,21 +307,6 @@ $(tabContainerStack).each(function () {
 
     //SHOW FIRST TAB
     triggerTabs(0);
-    //On scroll here? scroll trigger function onEnter
-    //make a new timeline
-    // let trigger = $(this);
-    // function scrollToTabs() {
-    //     let tlTabs = gsap.timeline({
-    //         scrollTrigger: {
-    //             trigger: trigger,
-    //             start: "top center",
-    //             markers: "true",
-    //             ease: "none",
-    //             onEnter: () => triggerTabs(0),
-    //         },
-    //     });
-    // }
-    // scrollToTabs();
 
     items.each(function (index) {
         let itemIndex = index;
@@ -424,9 +473,73 @@ $(".row_toggle").on("click", function () {
 
 ///-------------
 // Add numbers
-
 $(".rows > div").each(function (index) {
     let num = index + 1;
     let formatted = (num < 10 ? "0" : "") + num;
     $(this).find(".row_number").text(formatted);
+});
+
+///------------
+// Reading times
+const wordsPerMinute = 250;
+const secondsPerImage = 10;
+
+const cards = document.querySelectorAll(".news_card");
+
+for (const card of cards) {
+    const blogPostHome = card.querySelector(".blog-post_content");
+    const words = blogPostHome.textContent.split(" ").length;
+    const images = blogPostHome.getElementsByTagName("img").length;
+
+    const totalMinutes = Math.floor(
+        words / wordsPerMinute + (images * secondsPerImage) / 60
+    );
+    const totalSeconds =
+        (words / wordsPerMinute) * 60 + images * secondsPerImage;
+
+    const readTimeDiv = card.querySelector(".is-read-time");
+
+    if (totalSeconds < 60) {
+        readTimeDiv.textContent = `Read time: Less than 1 minute`;
+    } else if (totalMinutes === 1) {
+        readTimeDiv.textContent = `Read time: 1 minute`;
+    } else {
+        readTimeDiv.textContent = `Read time: ${totalMinutes} minutes`;
+    }
+}
+
+const blogContent = document.querySelectorAll(".blog-body_component");
+const blogHeader = document.querySelectorAll(".header-w-img");
+
+if (blogContent.length) {
+    const words = blogContent.textContent.split(" ").length;
+    const images = blogContent.getElementsByTagName("img").length;
+
+    const totalMinutes = Math.floor(
+        words / wordsPerMinute + (images * secondsPerImage) / 60
+    );
+    const totalSeconds =
+        (words / wordsPerMinute) * 60 + images * secondsPerImage;
+
+    const readTimeDiv = blogHeader.querySelector(".is-read-time");
+
+    if (totalSeconds < 60) {
+        readTimeDiv.textContent = `Read time: Less than 1 minute`;
+    } else if (totalMinutes === 1) {
+        readTimeDiv.textContent = `Read time: 1 minute`;
+    } else {
+        readTimeDiv.textContent = `Read time: ${totalMinutes} minutes`;
+    }
+}
+
+////------------
+// FORM STEPS
+let formSubject = "Not set";
+
+$(".cta_form-option.is-radio").on("click", function () {
+    $(".cta_form-option.is-radio").removeClass("is-active");
+    $(this).toggleClass("is-active");
+});
+$(".cta_form-option.is-check").on("click", function () {
+    $(this).toggleClass("is-active");
 });
