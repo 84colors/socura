@@ -317,72 +317,72 @@ $(tabContainerStack).each(function () {
 });
 
 // Tabs CONTACT
-// $(tabContact).each(function () {
-//     let items = $(this).find("[tabs='tabs-items'] > div");
-//     let heading = $(this).find(".stat_box-cream-title");
+$(tabContact).each(function () {
+    let items = $(this).find("[tabs='tabs-items'] > div");
+    let heading = $(this).find(".stat_box-cream-title");
 
-//     let prevIndex = -1;
+    let prevIndex = -1;
 
-//     //RESETS
-//     gsap.defaults({ duration: 0.75, ease: "power2.out" });
-//     gsap.set(items, {
-//         height: "70px",
-//         backgroundColor: "rgba(3, 189, 196, 0)",
-//         borderRightColor: "#016672",
-//         color: "#ffffff",
-//         paddingLeft: "24px",
-//         paddingTop: "8px",
-//         paddingRight: "24px",
-//     });
-//     gsap.set(heading, { scale: 1 });
+    //RESETS
+    gsap.defaults({ duration: 0.75, ease: "power2.out" });
+    gsap.set(items, {
+        height: "70px",
+        backgroundColor: "rgba(3, 189, 196, 0)",
+        borderRightColor: "#016672",
+        color: "#ffffff",
+        paddingLeft: "24px",
+        paddingTop: "8px",
+        paddingRight: "24px",
+    });
+    gsap.set(heading, { scale: 1 });
 
-//     function triggerTabs(index) {
-//         // CLOSE STATE
-//         if (prevIndex > -1) {
-//             let tl = gsap.timeline({ paused: true });
+    function triggerTabs(index) {
+        // CLOSE STATE
+        if (prevIndex > -1) {
+            let tl = gsap.timeline({ paused: true });
 
-//             tl.to(items.eq(prevIndex), {
-//                 height: "70px",
-//                 backgroundColor: "#016672",
-//                 borderRightColor: "#016672",
-//                 paddingLeft: "24px",
-//                 paddingTop: "8px",
-//                 paddingRight: "24px",
-//             });
-//             tl.to(heading.eq(prevIndex), { scale: 1, duration: 0.3 }, 0);
-//             tl.to(items.eq(prevIndex), { color: "#ffffff", duration: 0.3 }, 0);
+            tl.to(items.eq(prevIndex), {
+                height: "70px",
+                backgroundColor: "#016672",
+                borderRightColor: "#016672",
+                paddingLeft: "24px",
+                paddingTop: "8px",
+                paddingRight: "24px",
+            });
+            tl.to(heading.eq(prevIndex), { scale: 1, duration: 0.3 }, 0);
+            tl.to(items.eq(prevIndex), { color: "#ffffff", duration: 0.3 }, 0);
 
-//             tl.play();
-//         }
-//         // OPEN STATE
-//         let tlMain = gsap.timeline({ paused: true });
-//         tlMain.to(items.eq(index), {
-//             height: "auto",
-//             backgroundColor: "rgba(255, 255, 255, 1)",
-//             borderRightColor: "#00414f",
-//             paddingLeft: "48px",
-//             paddingRight: "48px",
-//             paddingTop: "48px",
-//         });
-//         tlMain.to(heading.eq(index), { scale: 2, duration: 0.3 }, 0);
-//         tlMain.to(items.eq(index), { color: "#00414f", duration: 0.2 }, 0);
+            tl.play();
+        }
+        // OPEN STATE
+        let tlMain = gsap.timeline({ paused: true });
+        tlMain.to(items.eq(index), {
+            height: "auto",
+            backgroundColor: "rgba(255, 255, 255, 1)",
+            borderRightColor: "#00414f",
+            paddingLeft: "48px",
+            paddingRight: "48px",
+            paddingTop: "48px",
+        });
+        tlMain.to(heading.eq(index), { scale: 2, duration: 0.3 }, 0);
+        tlMain.to(items.eq(index), { color: "#00414f", duration: 0.2 }, 0);
 
-//         tlMain.play();
+        tlMain.play();
 
-//         // track previous
-//         prevIndex = index;
-//     }
+        // track previous
+        prevIndex = index;
+    }
 
-//     //SHOW FIRST TAB
-//     triggerTabs(0);
+    //SHOW FIRST TAB
+    triggerTabs(0);
 
-//     items.each(function (index) {
-//         let itemIndex = index;
-//         $(this).on("click", function () {
-//             if (itemIndex !== prevIndex) triggerTabs(itemIndex);
-//         });
-//     });
-// });
+    items.each(function (index) {
+        let itemIndex = index;
+        $(this).on("click", function () {
+            if (itemIndex !== prevIndex) triggerTabs(itemIndex);
+        });
+    });
+});
 
 ///-----------------------------------
 //Sliders
