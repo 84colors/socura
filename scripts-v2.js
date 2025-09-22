@@ -90,8 +90,10 @@ $(tabContainer).each(function () {
 
         let tlMain = gsap.timeline({ paused: true });
         mm.add("(max-width: 1100px)", () => {
-            tlMain.to(items.eq(index), { height: "540px" });
-            tlMain.to(content.eq(index), { height: "520px" }, 0);
+            // tlMain.to(items.eq(index), { height: "540px" });
+            tlMain.to(items.eq(index), { height: "auto" });
+            // tlMain.to(content.eq(index), { height: "520px" }, 0);
+            tlMain.to(content.eq(index), { height: "auto" }, 0);
             tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
             tlMain.to(heading.eq(index), { opacity: 1 }, 0);
         });
@@ -146,7 +148,7 @@ $(tabContainerImg).each(function () {
     gsap.set(heading, { opacity: 0 });
 
     mm.add("(max-width: 1100px)", () => {
-        gsap.set(items, { height: "92px" });
+        gsap.set(items, { height: "72px" });
         gsap.set(items, { width: "100%" });
         gsap.to(headingVert, { opacity: 0 }, 0);
         gsap.to(heading, { opacity: 1 }, 0);
@@ -158,6 +160,9 @@ $(tabContainerImg).each(function () {
     });
 
     function triggerTabs(index) {
+        let headerEl = items.get(index);
+        let headerTop = headerEl.getBoundingClientRect().top + window.scrollY;
+
         // CLOSE STATE
         if (prevIndex > -1) {
             content.eq(prevIndex).hide();
@@ -187,11 +192,22 @@ $(tabContainerImg).each(function () {
         let tlMain = gsap.timeline({ paused: true });
 
         mm.add("(max-width: 1100px)", () => {
-            tlMain.to(items.eq(index), { height: "540px" });
-            tlMain.to(content.eq(index), { height: "520px" }, 0);
+            tlMain.to(items.eq(index), {
+                height: "auto",
+                onUpdate: () => {
+                    // Keep header anchored at same spot during expansion
+                    // window.scrollTo({
+                    //     top: headerTop,
+                    //     behavior: "instant",
+                    // });
+                },
+            });
+            tlMain.to(content.eq(index), { height: "auto" }, 0);
+            // tlMain.to(items.eq(index), { height: "540px" });
+            // tlMain.to(content.eq(index), { height: "520px" }, 0);
             tlMain.to(headingVert.eq(index), { opacity: 0 }, 0);
             tlMain.to(heading.eq(index), { opacity: 1 }, 0);
-            tlMain.to(image.eq(index), { opacity: 1, height: "340px" }, "0.45");
+            tlMain.to(image.eq(index), { opacity: 1, height: "260px" }, "0.45");
         });
         mm.add("(min-width: 1101px)", () => {
             tlMain.to(items.eq(index), { width: "100%" });
@@ -243,6 +259,7 @@ $(tabContainerStack).each(function () {
         // heading = $(this).find(".stat_box-cream-title");
         tabBg = "#f1ead8";
         scale = "2";
+
         padding = "48px";
 
         console.log("cream!");
@@ -288,15 +305,33 @@ $(tabContainerStack).each(function () {
         }
         // OPEN STATE
         let tlMain = gsap.timeline({ paused: true });
-        tlMain.to(items.eq(index), {
-            height: "400px",
-            backgroundColor: tabBg,
-            borderRightColor: "#00414f",
-            paddingTop: padding,
-            paddingLeft: padding,
-            paddingRight: padding,
+
+        mm.add("(max-width: 1100px)", () => {
+            tlMain.to(items.eq(index), {
+                height: "400px",
+                backgroundColor: tabBg,
+                borderRightColor: "#00414f",
+                paddingTop: "32px",
+                paddingLeft: "24px",
+                paddingRight: "24px",
+            });
+            tlMain.to(heading.eq(index), { scale: 1.3, duration: 0.3 }, 0);
         });
-        tlMain.to(heading.eq(index), { scale: scale, duration: 0.3 }, 0);
+        mm.add("(min-width: 1101px)", () => {
+            tlMain.to(items.eq(index), {
+                height: "400px",
+                backgroundColor: tabBg,
+                borderRightColor: "#00414f",
+                paddingTop: padding,
+                paddingLeft: padding,
+                paddingRight: padding,
+            });
+            tlMain.to(
+                heading.eq(index),
+                { scale: scale, paddingBottom: "32px", duration: 0.3 },
+                0
+            );
+        });
         tlMain.to(items.eq(index), { color: "#00414f", duration: 0.2 }, 0);
 
         tlMain.play();
@@ -315,74 +350,6 @@ $(tabContainerStack).each(function () {
         });
     });
 });
-
-// Tabs CONTACT
-// $(tabContact).each(function () {
-//     let items = $(this).find("[tabs='tabs-items'] > div");
-//     let heading = $(this).find(".stat_box-cream-title");
-
-//     let prevIndex = -1;
-
-//     //RESETS
-//     gsap.defaults({ duration: 0.75, ease: "power2.out" });
-//     gsap.set(items, {
-//         height: "70px",
-//         backgroundColor: "rgba(3, 189, 196, 0)",
-//         borderRightColor: "#016672",
-//         color: "#ffffff",
-//         paddingLeft: "24px",
-//         paddingTop: "8px",
-//         paddingRight: "24px",
-//     });
-//     gsap.set(heading, { scale: 1 });
-
-//     function triggerTabs(index) {
-//         // CLOSE STATE
-//         if (prevIndex > -1) {
-//             let tl = gsap.timeline({ paused: true });
-
-//             tl.to(items.eq(prevIndex), {
-//                 height: "70px",
-//                 backgroundColor: "#016672",
-//                 borderRightColor: "#016672",
-//                 paddingLeft: "24px",
-//                 paddingTop: "8px",
-//                 paddingRight: "24px",
-//             });
-//             tl.to(heading.eq(prevIndex), { scale: 1, duration: 0.3 }, 0);
-//             tl.to(items.eq(prevIndex), { color: "#ffffff", duration: 0.3 }, 0);
-
-//             tl.play();
-//         }
-//         // OPEN STATE
-//         let tlMain = gsap.timeline({ paused: true });
-//         tlMain.to(items.eq(index), {
-//             height: "auto",
-//             backgroundColor: "rgba(255, 255, 255, 1)",
-//             borderRightColor: "#00414f",
-//             paddingLeft: "48px",
-//             paddingRight: "48px",
-//             paddingTop: "48px",
-//         });
-//         tlMain.to(heading.eq(index), { scale: 2, duration: 0.3 }, 0);
-//         tlMain.to(items.eq(index), { color: "#00414f", duration: 0.2 }, 0);
-
-//         tlMain.play();
-
-//         // track previous
-//         prevIndex = index;
-//     }
-
-//     //SHOW FIRST TAB
-//     triggerTabs(0);
-
-//     items.each(function (index) {
-//         let itemIndex = index;
-//         $(this).on("click", function () {
-//             if (itemIndex !== prevIndex) triggerTabs(itemIndex);
-//         });
-//     });
-// });
 
 ///-----------------------------------
 //Sliders
