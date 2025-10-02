@@ -1,22 +1,11 @@
 `use strict`;
 // const isLocal = true;
 
-// drawSVG https://gsap.com/community/forums/topic/39835-trim-paths-offset-clone-in-gsap/
-// https://css-tricks.com/svg-line-animation-works/
-
 console.log("hello from stack");
 
 //-----
 // CHECK IF MOBILE VIEW
 const mm = gsap.matchMedia();
-// let mm = gsap.matchMedia();
-
-// mm.add("(max-width: 1100px)", () => {
-//     console.log("mobile");
-// });
-// mm.add("(min-width: 1101px)", () => {
-//     console.log("desktop");
-// });
 
 // ---------------------------------
 //TABS ANIMATION
@@ -498,15 +487,3 @@ if (blogContent.length) {
         readTimeDiv.textContent = `Read time: ${totalMinutes} minutes`;
     }
 }
-
-////------------
-// FORM STEPS
-// let formSubject = "Not set";
-
-// $(".cta_form-option.is-radio").on("click", function () {
-//     $(".cta_form-option.is-radio").removeClass("is-active");
-//     $(this).toggleClass("is-active");
-// });
-// $(".cta_form-option.is-check").on("click", function () {
-//     $(this).toggleClass("is-active");
-// });
