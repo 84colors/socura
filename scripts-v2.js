@@ -280,7 +280,7 @@ $(tabContainerStack).each(function () {
             let tl = gsap.timeline({ paused: true });
 
             tl.to(items.eq(prevIndex), {
-                height: "70px",
+                height: "90px",
                 backgroundColor: "rgba(3, 189, 196, 0)",
                 borderRightColor: "#016672",
                 paddingTop: "24px",
@@ -304,7 +304,7 @@ $(tabContainerStack).each(function () {
                 paddingLeft: "24px",
                 paddingRight: "24px",
             });
-            tlMain.to(heading.eq(index), { scale: 1.3, duration: 0.3 }, 0);
+            tlMain.to(heading.eq(index), { scale: 1.1, duration: 0.3 }, 0);
         });
         mm.add("(min-width: 1101px)", () => {
             tlMain.to(items.eq(index), {

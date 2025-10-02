@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Custom scripts -->
+    <script src="http://127.0.0.1:5500/scripts-v2.js"></script>
+    <script> if (typeof isLocal === 'undefined') {
+            let script = document.createElement('script')
+            let css = document.createElement('link')
+            script.type = 'text/javascript'
+            css.rel = 'stylesheet'
+            script.src = 'https://84colors.github.io/socura/scripts-v2.js'
+            css.href = 'https://84colors.github.io/socura/custom_css.css'
+            document.body.appendChild(script)
+            document.head.appendChild(css)
+        }
+
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>GSAP Accordion with Staggered Content</title>
