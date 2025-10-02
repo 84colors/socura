@@ -33,7 +33,7 @@ $(tabContainer).each(function () {
     //Mobile if/else
     // gsap.set(items, { width: "92px" });
     mm.add("(max-width: 1100px)", () => {
-        gsap.set(items, { height: "92px" });
+        gsap.set(items, { height: "72px" });
         gsap.set(items, { width: "100%" });
         gsap.to(headingVert, { opacity: 0 }, 0);
         gsap.to(heading, { opacity: 1 }, 0);
@@ -263,30 +263,56 @@ $(tabContainerStack).each(function () {
 
     //RESETS
     gsap.defaults({ duration: 0.75, ease: "power2.out" });
-    gsap.set(items, {
-        height: "70px",
-        backgroundColor: "rgba(3, 189, 196, 0)",
-        borderRightColor: "#016672",
-        color: "#ffffff",
-        paddingTop: "24px",
-        paddingLeft: "24px",
-        paddingRight: "24px",
+    mm.add("(max-width: 1100px)", () => {
+        gsap.set(items, {
+            height: "70px",
+            backgroundColor: "rgba(3, 189, 196, 0)",
+            borderRightColor: "#016672",
+            color: "#ffffff",
+            paddingTop: "24px",
+            paddingLeft: "24px",
+            paddingRight: "24px",
+        });
     });
+    mm.add("(min-width: 1101px)", () => {
+        gsap.set(items, {
+            height: "70px",
+            backgroundColor: "rgba(3, 189, 196, 0)",
+            borderRightColor: "#016672",
+            color: "#ffffff",
+            paddingTop: "24px",
+            paddingLeft: "24px",
+            paddingRight: "24px",
+        });
+    });
+
     gsap.set(heading, { scale: 1 });
 
     function triggerTabs(index) {
         // CLOSE STATE
         if (prevIndex > -1) {
             let tl = gsap.timeline({ paused: true });
-
-            tl.to(items.eq(prevIndex), {
-                height: "90px",
-                backgroundColor: "rgba(3, 189, 196, 0)",
-                borderRightColor: "#016672",
-                paddingTop: "24px",
-                paddingLeft: "24px",
-                paddingRight: "24px",
+            mm.add("(max-width: 1100px)", () => {
+                tl.to(items.eq(prevIndex), {
+                    height: "90px",
+                    backgroundColor: "rgba(3, 189, 196, 0)",
+                    borderRightColor: "#016672",
+                    paddingTop: "24px",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                });
             });
+            mm.add("(min-width: 1101px)", () => {
+                tl.to(items.eq(prevIndex), {
+                    height: "70px",
+                    backgroundColor: "rgba(3, 189, 196, 0)",
+                    borderRightColor: "#016672",
+                    paddingTop: "24px",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                });
+            });
+
             tl.to(heading.eq(prevIndex), { scale: 1, duration: 0.3 }, 0);
             tl.to(items.eq(prevIndex), { color: "#ffffff", duration: 0.3 }, 0);
 
